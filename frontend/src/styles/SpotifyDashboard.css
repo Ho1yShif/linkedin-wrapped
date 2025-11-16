@@ -498,56 +498,6 @@
   }
 }
 
-  .metrics-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .metric-card {
-    min-height: 180px;
-  }
-
-  .card-content {
-    padding: 1.5rem;
-  }
-
-  .card-label {
-    font-size: 0.75rem;
-  }
-
-  .card-value,
-  .primary-value {
-    font-size: 1.75rem;
-  }
-
-  .engagement-metrics {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.5rem;
-  }
-
-  .engagement-icon {
-    font-size: 1.25rem;
-  }
-
-  .engagement-value {
-    font-size: 1.125rem;
-  }
-
-  .detailed-stats {
-    padding: 1.5rem 1rem;
-  }
-
-  .stats-row {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .stat-value {
-    font-size: 1.5rem;
-  }
-}
-
 @media (max-width: 480px) {
   .spotify-dashboard {
     padding: 1rem 0.75rem;

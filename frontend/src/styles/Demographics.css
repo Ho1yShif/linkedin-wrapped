@@ -7,7 +7,7 @@
   font-size: 2.5rem;
   font-weight: 800;
   margin-bottom: 2rem;
-  background: linear-gradient(135deg, #0A66C2 0%, #378FE9 100%);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent-green) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -15,52 +15,75 @@
 
 .stats-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
   margin-bottom: 3rem;
 }
 
 .stat-card {
-  background: linear-gradient(135deg, #F0F7FF 0%, white 100%);
+  background: linear-gradient(135deg, rgba(10, 102, 194, 0.08) 0%, rgba(10, 102, 194, 0.02) 100%);
   padding: 2rem;
-  border-radius: 12px;
-  border: 2px solid #0A66C2;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  border: 1px solid var(--border-color-light);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(29, 185, 84, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(10, 143, 255, 0.2);
+  border-color: var(--primary-light);
+  background: linear-gradient(135deg, rgba(10, 143, 255, 0.12) 0%, rgba(10, 143, 255, 0.04) 100%);
+}
+
+.stat-card:hover::before {
+  opacity: 1;
 }
 
 .stat-number {
   font-size: 2.5rem;
-  font-weight: 800;
-  color: #0A66C2;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .stat-label {
   font-size: 1rem;
-  color: #717171;
-  font-weight: 600;
+  color: var(--text-secondary);
+  font-weight: 700;
 }
 
 .demo-section {
-  background-color: white;
+  background: linear-gradient(135deg, rgba(10, 102, 194, 0.06) 0%, rgba(29, 185, 84, 0.04) 100%);
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: 16px;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid #E0E0E0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color-light);
 }
 
 .demo-section h2 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: #2D2D2D;
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
 .geography-grid {
@@ -71,38 +94,42 @@
 }
 
 .geo-card {
-  background: linear-gradient(135deg, #F0F7FF 0%, white 100%);
+  background: linear-gradient(135deg, rgba(10, 143, 255, 0.08) 0%, rgba(10, 143, 255, 0.02) 100%);
   padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid #B8D4F1;
+  border-radius: 12px;
+  border: 1px solid var(--border-color-light);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .geo-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  border-color: #0A66C2;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(10, 143, 255, 0.15);
+  border-color: var(--primary-light);
+  background: linear-gradient(135deg, rgba(10, 143, 255, 0.15) 0%, rgba(29, 185, 84, 0.08) 100%);
 }
 
 .geo-country {
   font-size: 1rem;
   font-weight: 700;
-  color: #0A66C2;
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 0.5rem;
 }
 
 .geo-count {
   font-size: 1.5rem;
-  font-weight: 800;
-  color: #2D2D2D;
+  font-weight: 900;
+  color: var(--text-primary);
   margin-bottom: 0.25rem;
 }
 
 .geo-percentage {
   font-size: 0.85rem;
-  color: #717171;
-  font-weight: 600;
+  color: var(--text-tertiary);
+  font-weight: 700;
 }
 
 .industries-grid {
@@ -113,30 +140,49 @@
 }
 
 .industry-badge {
-  background: linear-gradient(135deg, #0A66C2 0%, #378FE9 100%);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent-cyan) 100%);
   color: white;
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: 12px;
   text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(10, 102, 194, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(10, 143, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.industry-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(29, 185, 84, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .industry-badge:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(10, 102, 194, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(10, 143, 255, 0.4);
+}
+
+.industry-badge:hover::before {
+  opacity: 1;
 }
 
 .industry-name {
   font-size: 1rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .industry-percentage {
   font-size: 0.9rem;
   opacity: 0.95;
-  font-weight: 600;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes fadeIn {
