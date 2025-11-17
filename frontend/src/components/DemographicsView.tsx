@@ -58,7 +58,7 @@ export const DemographicsView: React.FC<DemographicsViewProps> = ({ demographics
   return (
     <div className="demographics-view">
       <div className="demographics-header">
-        <h2 className="demographics-title">Audience Demographics</h2>
+        <h2 className="demographics-title">Top demographics</h2>
         <p className="demographics-subtitle">
           Discover who your content resonates with
         </p>
@@ -67,7 +67,7 @@ export const DemographicsView: React.FC<DemographicsViewProps> = ({ demographics
       <div className="demographics-grid">
         {demographics?.job_titles?.length > 0 && (
           <DemographicCategory
-            title="Top Job Titles"
+            title="Job Titles"
             items={demographics.job_titles}
             icon="💼"
           />
@@ -75,7 +75,7 @@ export const DemographicsView: React.FC<DemographicsViewProps> = ({ demographics
 
         {demographics?.locations?.length > 0 && (
           <DemographicCategory
-            title="Top Locations"
+            title="Locations"
             items={demographics.locations}
             icon="📍"
           />
@@ -83,7 +83,7 @@ export const DemographicsView: React.FC<DemographicsViewProps> = ({ demographics
 
         {demographics?.industries?.length > 0 && (
           <DemographicCategory
-            title="Top Industries"
+            title="Industries"
             items={demographics.industries}
             icon="🏢"
           />
@@ -107,7 +107,7 @@ export const DemographicsView: React.FC<DemographicsViewProps> = ({ demographics
 
         {demographics?.companies && demographics.companies.length > 0 && (
           <DemographicCategory
-            title="Top Companies"
+            title="Companies"
             items={demographics.companies}
             icon="🏆"
           />
