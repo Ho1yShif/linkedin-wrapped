@@ -1,65 +1,58 @@
 import { useState } from 'react';
 import '../styles/Header.css';
 
-export function Header() {
+interface HeaderProps {
+  onLogoClick?: () => void;
+}
+
+export function Header({ onLogoClick }: HeaderProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleHomeClick = () => {
-    // Navigate back to home by reloading the page
-    window.location.href = '/';
+    onLogoClick?.();
   };
 
   return (
     <header className="app-header">
       <div className="header-content">
-        <div
+        <button
           className="linkedin-wrapped-title-container"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={handleHomeClick}
+          aria-label="Navigate to home"
+          title="Go to home"
         >
-          <h1 className={`linkedin-wrapped-title ${isHovered ? 'hovered' : ''}`}>
-            LinkedIn Wrapped
-          </h1>
-          {isHovered && (
+          <div className="logo-wrapper">
+            <h1 className={`linkedin-wrapped-title ${isHovered ? 'hovered' : ''}`}>
+              LinkedIn Wrapped
+            </h1>
+            {/* Threading ribbon SVG overlay */}
             <svg
-              className="ribbon-bow"
-              viewBox="0 0 200 100"
+              className={`threading-ribbon ${isHovered ? 'visible' : ''}`}
+              viewBox="0 0 300 50"
               xmlns="http://www.w3.org/2000/svg"
-              width="80"
-              height="40"
+              preserveAspectRatio="none"
             >
-              <g className="ribbon-group">
-                {/* Left ribbon tail */}
-                <path
-                  className="ribbon-path"
-                  d="M 20 50 Q 30 40 40 50 Q 35 60 25 55"
-                  fill="none"
-                  stroke="#0A66C2"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                />
-                {/* Right ribbon tail */}
-                <path
-                  className="ribbon-path"
-                  d="M 180 50 Q 170 40 160 50 Q 165 60 175 55"
-                  fill="none"
-                  stroke="#0A66C2"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                />
-                {/* Center bow */}
-                <circle
-                  className="bow-center"
-                  cx="100"
-                  cy="50"
-                  r="8"
-                  fill="#0A66C2"
-                />
-              </g>
+              <defs>
+                <linearGradient id="ribbonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style={{ stopColor: '#0A66C2', stopOpacity: 0 }} />
+                  <stop offset="50%" style={{ stopColor: '#0A66C2', stopOpacity: 1 }} />
+                  <stop offset="100%" style={{ stopColor: '#0A66C2', stopOpacity: 0 }} />
+                </linearGradient>
+              </defs>
+              {/* Ribbon threading through the text */}
+              <path
+                className="ribbon-thread"
+                d="M -10 25 Q 40 8 80 30 Q 120 50 160 25 Q 200 5 240 28 Q 270 40 310 25"
+                fill="none"
+                stroke="url(#ribbonGradient)"
+                strokeWidth="6"
+                strokeLinecap="round"
+              />
             </svg>
-          )}
-        </div>
+          </div>
+        </button>
       </div>
     </header>
   );

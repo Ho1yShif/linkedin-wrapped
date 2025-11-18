@@ -62,9 +62,13 @@ function App() {
     setError(null);
   };
 
+  const handleLogoClick = () => {
+    handleRetry();
+  };
+
   return (
     <div className="app-container">
-      <Header />
+      <Header onLogoClick={handleLogoClick} />
 
       <main className="app-main">
         {error && <ErrorDisplay error={error} onRetry={handleRetry} />}
