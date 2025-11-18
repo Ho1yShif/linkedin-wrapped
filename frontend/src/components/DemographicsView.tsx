@@ -67,7 +67,7 @@ export const DemographicsView: React.FC<DemographicsViewProps> = ({ demographics
       <div className="demographics-grid">
         {demographics?.job_titles?.length > 0 && (
           <DemographicCategory
-            title="Job Titles"
+            title="Job titles"
             items={demographics.job_titles}
             icon="💼"
           />
@@ -85,13 +85,13 @@ export const DemographicsView: React.FC<DemographicsViewProps> = ({ demographics
           <DemographicCategory
             title="Industries"
             items={demographics.industries}
-            icon="🏢"
+            icon="🛠️"
           />
         )}
 
         {demographics?.seniority && demographics.seniority.length > 0 && (
           <DemographicCategory
-            title="Seniority Levels"
+            title="Seniority levels"
             items={demographics.seniority}
             icon="⭐"
           />
@@ -99,7 +99,7 @@ export const DemographicsView: React.FC<DemographicsViewProps> = ({ demographics
 
         {demographics?.company_size && demographics.company_size.length > 0 && (
           <DemographicCategory
-            title="Company Size"
+            title="Company size"
             items={demographics.company_size}
             icon="👥"
           />
@@ -109,7 +109,7 @@ export const DemographicsView: React.FC<DemographicsViewProps> = ({ demographics
           <DemographicCategory
             title="Companies"
             items={demographics.companies}
-            icon="🏆"
+            icon="🏢"
           />
         )}
       </div>

@@ -21,7 +21,7 @@ export function Header({ onLogoClick }: HeaderProps) {
           onMouseLeave={() => setIsHovered(false)}
           onClick={handleHomeClick}
           aria-label="Navigate to home"
-          title="Go to home"
+          title="LinkedIn Wrapped Home"
         >
           <div className="logo-wrapper">
             <h1 className={`linkedin-wrapped-title ${isHovered ? 'hovered' : ''}`}>
