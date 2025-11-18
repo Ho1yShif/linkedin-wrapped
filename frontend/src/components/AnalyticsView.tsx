@@ -46,7 +46,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ data }) => {
               <div className="card-value">{data.totalShares.toLocaleString()}</div>
             </div>
             <div className="card">
-              <div className="card-label">Avg Engagement</div>
+              <div className="card-label">Average Engagement</div>
               <div className="card-value">{data.averageEngagement?.toFixed(2) || '0.00'}</div>
             </div>
           </div>

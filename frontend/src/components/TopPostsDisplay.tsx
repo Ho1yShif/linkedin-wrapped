@@ -25,7 +25,7 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
       const date = new Date(dateStr);
       return date.toLocaleDateString('en-US', {
         year: 'numeric',
-        month: 'short',
+        month: 'long',
         day: 'numeric'
       });
     } catch {
@@ -99,7 +99,7 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
         </div>
         <div className="summary-stat-card">
           <div className="summary-stat-number">{formatEngagements(topPostEngagements)}</div>
-          <div className="summary-stat-label">Top Post Engagement</div>
+          <div className="summary-stat-label">Top Post Engagements</div>
         </div>
       </div>
 
@@ -153,7 +153,7 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                 </div>
                 {post.impressions && post.impressions > 0 && (
                   <div className="stat-box">
-                    <div className="stat-icon">👁️</div>
+                    <div className="stat-icon">✨</div>
                     <div className="stat-info">
                       <div className="stat-value">{formatEngagements(post.impressions)}</div>
                       <div className="stat-label">Impressions</div>

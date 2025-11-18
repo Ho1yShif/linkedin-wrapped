@@ -107,7 +107,7 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
 
       {/* Detailed Stats Section */}
       <div className="detailed-stats">
-        <h2 className="section-title">Your Year at a Glance</h2>
+        <h2 className="section-title">Year at a glance</h2>
         <div className="stats-row">
           <div className="stat-item">
             <div className="stat-label">Total Engagement</div>
