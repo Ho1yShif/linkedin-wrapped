@@ -1,41 +1,4 @@
 /* Spotify Dashboard Styling - Unified Dark Mode Design */
-.spotify-dashboard {
-  width: 100%;
-  padding: 3rem 2rem;
-  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-  color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  min-height: 100vh;
-}
-
-/* Hero Section */
-.hero-section {
-  margin-bottom: 4rem;
-  text-align: center;
-  animation: fadeInDown 0.8s ease-out;
-}
-
-.hero-content {
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.hero-title {
-  font-family: var(--font-title);
-  font-size: 3.5rem;
-  font-weight: 700;
-  letter-spacing: -1px;
-  margin-bottom: 0.5rem;
-  color: var(--text-accent);
-}
-
-.hero-subtitle {
-  font-family: var(--font-body);
-  font-size: 1.125rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-  margin: 0;
-}
 
 /* Your Year at a Glance - Unified Section */
 .year-at-glance-section {

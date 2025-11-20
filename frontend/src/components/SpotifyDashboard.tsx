@@ -23,25 +23,8 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
     return num.toString();
   };
 
-  const startDate = discovery?.start_date ? new Date(discovery.start_date) : null;
-  const endDate = discovery?.end_date ? new Date(discovery.end_date) : null;
-
   return (
-    <div className="spotify-dashboard">
-      {/* Hero Section */}
-      <div className="hero-section">
-        <h1 className="hero-title">
-              Your professional year in review
-            </h1>
-        <div className="hero-content">
-          {startDate && endDate && (
-            <h2 className="hero-subtitle">
-                {startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} — {endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-              </h2>
-          )}
-        </div>
-      </div>
-
+    <>
       {/* Your Year at a Glance - Unified Metrics Section */}
       <div className="year-at-glance-section">
         <h2 className="section-heading">Your year at a glance</h2>
@@ -128,6 +111,6 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
         </div>
 
       </div>
-    </div>
+    </>
   );
 };
