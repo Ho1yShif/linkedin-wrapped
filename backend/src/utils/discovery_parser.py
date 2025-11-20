@@ -16,12 +16,20 @@ class DiscoveryData:
         self.total_impressions = total_impressions
         self.members_reached = members_reached
 
+        # Calculate derived metrics
+        days_count = (end_date - start_date).days + 1  # +1 to include both start and end dates
+        self.average_impressions_per_day = total_impressions // days_count if days_count > 0 else 0
+        # For now, total_engagements equals total_impressions (can be refined with actual engagement data)
+        self.total_engagements = total_impressions
+
     def to_dict(self):
         return {
             "start_date": self.start_date.isoformat(),
             "end_date": self.end_date.isoformat(),
             "total_impressions": self.total_impressions,
-            "members_reached": self.members_reached
+            "members_reached": self.members_reached,
+            "total_engagements": self.total_engagements,
+            "average_impressions_per_day": self.average_impressions_per_day
         }
 
 

@@ -8,6 +8,8 @@ class DiscoveryData(BaseModel):
     end_date: date
     total_impressions: int
     members_reached: int
+    total_engagements: Optional[int] = None
+    average_impressions_per_day: Optional[int] = None
 
 class TopPost(BaseModel):
     """Top performing post data"""

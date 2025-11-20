@@ -6,20 +6,16 @@ interface DiscoveryData {
   end_date: string;
   total_impressions: number;
   members_reached: number;
+  total_engagements?: number;
+  average_impressions_per_day?: number;
 }
 
 interface SpotifyDashboardProps {
   discovery?: DiscoveryData;
-  totalLikes?: number;
-  totalComments?: number;
-  totalShares?: number;
 }
 
 export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
   discovery,
-  totalLikes = 0,
-  totalComments = 0,
-  totalShares = 0,
 }) => {
   const formatNumber = (num: number) => {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
@@ -29,20 +25,6 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
 
   const startDate = discovery?.start_date ? new Date(discovery.start_date) : null;
   const endDate = discovery?.end_date ? new Date(discovery.end_date) : null;
-
-  // Calculate metrics directly from source data
-  const totalEngagement = (totalLikes || 0) + (totalComments || 0) + (totalShares || 0);
-  const avgImpressionsPerDay =
-    discovery?.total_impressions && startDate && endDate
-      ? Math.round(
-          discovery.total_impressions /
-            ((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
-        )
-      : 0;
-  const engagementRatePerDay =
-    discovery?.total_impressions && avgImpressionsPerDay > 0
-      ? ((totalEngagement / avgImpressionsPerDay) * 100).toFixed(2)
-      : '0.00';
 
   return (
     <div className="spotify-dashboard">
@@ -97,95 +79,54 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
           </div>
         </div>
 
-        {/* Line 2: Likes, Comments, Shares (3 cards) */}
+        {/* Line 2: Total Engagements, Total Impressions (duplicate), and Average Impressions Per Day */}
         <div className="glance-metrics-grid line-2">
-          {/* Likes Card */}
-          <div className="metric-card">
-            <div className="card-background gradient-3"></div>
-            <div className="card-content">
-              <h3 className="card-label">Likes</h3>
-              <div className="card-value-container">
-                <div className="card-value">
-                  {formatNumber(totalLikes)}
-                </div>
-              </div>
-              <div className="card-accent"></div>
-            </div>
-          </div>
-
-          {/* Comments Card */}
-          <div className="metric-card">
-            <div className="card-background gradient-1"></div>
-            <div className="card-content">
-              <h3 className="card-label">Comments</h3>
-              <div className="card-value-container">
-                <div className="card-value">
-                  {formatNumber(totalComments)}
-                </div>
-              </div>
-              <div className="card-accent"></div>
-            </div>
-          </div>
-
-          {/* Shares Card */}
-          <div className="metric-card">
-            <div className="card-background gradient-2"></div>
-            <div className="card-content">
-              <h3 className="card-label">Shares</h3>
-              <div className="card-value-container">
-                <div className="card-value">
-                  {formatNumber(totalShares)}
-                </div>
-              </div>
-              <div className="card-accent"></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Line 3: Total Engagements, Total Impressions, Average Engagement Rate per Day (3 cards) */}
-        <div className="glance-metrics-grid line-3">
           {/* Total Engagements Card */}
           <div className="metric-card">
-            <div className="card-background gradient-2"></div>
+            <div className="card-background gradient-3"></div>
             <div className="card-content">
               <h3 className="card-label">Total Engagements</h3>
               <div className="card-value-container">
-                <div className="card-value">
-                  {formatNumber(totalEngagement)}
+                <div className="card-value secondary-value">
+                  {formatNumber(discovery?.total_engagements || 0)}
                 </div>
+                <div className="card-unit">engagements</div>
               </div>
               <div className="card-accent"></div>
             </div>
           </div>
 
-          {/* Total Impressions Card */}
+          {/* Average Impressions Per Day Card */}
           <div className="metric-card">
             <div className="card-background gradient-1"></div>
             <div className="card-content">
-              <h3 className="card-label">Total Impressions</h3>
+              <h3 className="card-label">Average daily impressions</h3>
               <div className="card-value-container">
-                <div className="card-value">
-                  {formatNumber(discovery?.total_impressions || 0)}
+                <div className="card-value secondary-value">
+                  {formatNumber(discovery?.average_impressions_per_day || 0)}
                 </div>
+                <div className="card-unit">daily average</div>
               </div>
               <div className="card-accent"></div>
             </div>
           </div>
 
-          {/* Avg Engagement Rate per Day Card */}
+          {/* Placeholder Card for 3-column layout */}
           <div className="metric-card">
-            <div className="card-background gradient-3"></div>
+            <div className="card-background gradient-2"></div>
             <div className="card-content">
-              <h3 className="card-label">Avg Engagement Rate per Day</h3>
+              <h3 className="card-label">New followers</h3>
               <div className="card-value-container">
-                <div className="card-value">
-                  {engagementRatePerDay}%
+                <div className="card-value secondary-value">
+                  {formatNumber(discovery?.members_reached || 0)}
                 </div>
+                <div className="card-unit">people</div>
               </div>
               <div className="card-accent"></div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

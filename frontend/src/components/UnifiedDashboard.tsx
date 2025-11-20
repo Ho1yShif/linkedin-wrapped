@@ -21,9 +21,6 @@ export const UnifiedDashboard: React.FC<UnifiedDashboardProps> = ({ data, demogr
       {discoveryData && (
         <SpotifyDashboard
           discovery={discoveryData}
-          totalLikes={data.totalLikes || 0}
-          totalComments={data.totalComments || 0}
-          totalShares={data.totalShares || 0}
         />
       )}
 

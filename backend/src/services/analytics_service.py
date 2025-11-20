@@ -29,7 +29,9 @@ async def get_discovery_data(file_id: str) -> Optional[DiscoveryData]:
                 start_date=discovery.start_date,
                 end_date=discovery.end_date,
                 total_impressions=discovery.total_impressions,
-                members_reached=discovery.members_reached
+                members_reached=discovery.members_reached,
+                total_engagements=discovery.total_engagements,
+                average_impressions_per_day=discovery.average_impressions_per_day
             )
         return discovery
     return None
@@ -43,25 +45,21 @@ async def get_engagement_metrics(file_id: str) -> EngagementMetrics:
 
     if discovery:
         return EngagementMetrics(
-            total_likes=0,  # TODO: Parse from file
-            total_comments=0,  # TODO: Parse from file
-            total_shares=0,  # TODO: Parse from file
             peak_engagement_time=None,  # TODO: Calculate from file
-            top_performing_posts=[],  # TODO: Extract from file
+            top_performing_posts=[],
             discovery_data={
                 "start_date": discovery.start_date.isoformat(),
                 "end_date": discovery.end_date.isoformat(),
                 "total_impressions": discovery.total_impressions,
-                "members_reached": discovery.members_reached
+                "members_reached": discovery.members_reached,
+                "total_engagements": discovery.total_engagements,
+                "average_impressions_per_day": discovery.average_impressions_per_day
             },
             top_posts=top_posts
         )
 
     # Fallback if no discovery data
     return EngagementMetrics(
-        total_likes=0,
-        total_comments=0,
-        total_shares=0,
         peak_engagement_time=None,
         top_performing_posts=[],
         top_posts=top_posts
