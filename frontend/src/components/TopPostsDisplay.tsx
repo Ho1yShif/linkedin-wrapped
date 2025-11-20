@@ -98,8 +98,6 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                   flexWrap: 'wrap',
                   gap: '1rem',
                   marginTop: '1.5rem',
-                  paddingTop: '1.5rem',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.15)',
                 }}
               >
                 <div
