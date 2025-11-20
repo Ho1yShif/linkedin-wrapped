@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import '../styles/Header.css';
 
 interface HeaderProps {
@@ -6,8 +5,6 @@ interface HeaderProps {
 }
 
 export function Header({ onLogoClick }: HeaderProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
   const handleHomeClick = () => {
     onLogoClick?.();
   };
@@ -17,20 +14,17 @@ export function Header({ onLogoClick }: HeaderProps) {
       <div className="header-content">
         <button
           className="linkedin-wrapped-title-container"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
           onClick={handleHomeClick}
           aria-label="Navigate to home"
           title="LinkedIn Wrapped home"
         >
           <div className="logo-wrapper">
-            {/* Bow decoration */}
             <img
-              src="/wide-bow.png"
-              alt="Bow decoration"
-              className={`ribbon-bow ${isHovered ? 'visible' : ''}`}
+              src="/gift.png"
+              alt="Gift decoration"
+              className="gift-icon"
             />
-            <h1 className={`linkedin-wrapped-title ${isHovered ? 'hovered' : ''}`}>
+            <h1 className="linkedin-wrapped-title">
               LinkedIn Wrapped
             </h1>
           </div>
