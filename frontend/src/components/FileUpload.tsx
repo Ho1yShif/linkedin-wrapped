@@ -30,7 +30,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelected, isLoadin
         <div className="dropzone-content">
           <div className="upload-icon">📤</div>
           {isDragActive ? (
-            <p className="dropzone-text">Drop your file here...</p>
+            <p className="dropzone-text">Drop your file here</p>
           ) : (
             <>
               <p className="dropzone-text">Drag and drop your LinkedIn analytics file here</p>

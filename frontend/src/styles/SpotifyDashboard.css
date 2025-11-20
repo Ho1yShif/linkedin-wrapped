@@ -2,21 +2,9 @@
 
 /* Your Year at a Glance - Unified Section */
 .year-at-glance-section {
-  max-width: 1400px;
-  margin: 0 auto 4rem;
-  animation: slideUp 0.8s ease-out 0.1s both;
   background: none;
   padding: 0;
   border: none;
-}
-
-.section-heading {
-  font-family: var(--font-title);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-accent);
-  margin: 0 0 2rem 0;
-  letter-spacing: -0.5px;
 }
 
 /* Metrics Grid - 3 different layouts for 3 lines */
@@ -149,12 +137,6 @@
 .secondary-value {
   font-size: 2.75rem;
 }
-
-.metric-card:nth-child(2):hover .secondary-value {
-  background: linear-gradient(135deg, var(--accent-pink), #FF4B70);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .metric-card:nth-child(3):hover .secondary-value {
@@ -280,7 +262,7 @@
     margin: 0 auto 2.5rem;
   }
 
-  .section-heading {
+  .section-title {
     font-size: 1.25rem;
     margin-bottom: 1.5rem;
   }
@@ -321,7 +303,7 @@
     margin: 0 auto 1.5rem;
   }
 
-  .section-heading {
+  .section-title {
     font-size: 1.1rem;
     margin-bottom: 1rem;
   }

@@ -34,15 +34,6 @@
   margin-bottom: 2rem;
 }
 
-.section-title {
-  font-family: var(--font-title);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-accent);
-  margin: 0 0 0.5rem 0;
-  letter-spacing: -0.5px;
-}
-
 .section-subtitle {
   font-family: var(--font-body);
   font-size: 1rem;

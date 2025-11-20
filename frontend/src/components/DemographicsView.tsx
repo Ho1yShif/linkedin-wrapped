@@ -58,7 +58,7 @@ export const DemographicsView: React.FC<DemographicsViewProps> = ({ demographics
   return (
     <div className="demographics-view">
       <div className="demographics-header">
-        <h2 className="demographics-title">Top demographics</h2>
+        <h2 className="section-title">Top demographics</h2>
         <p className="demographics-subtitle">
           Discover who your content resonates with
         </p>

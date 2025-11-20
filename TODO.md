@@ -1,6 +1,7 @@
 # TODO
 
-- Need to change total impressions lower card to new followers
+- Align demographics cards with other cards, perhaps using unified card style
+- Run calculations for new followers card
 - Zack's feedback:
 	- Don’t light up cards on hover
 	- Make top posts cards clickable

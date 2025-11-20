@@ -27,8 +27,15 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
     <>
       {/* Your Year at a Glance - Unified Metrics Section */}
       <div className="year-at-glance-section">
-        <h2 className="section-heading">Your year at a glance</h2>
-
+        <h2 className="section-title">Your year at a glance</h2>
+        <p className="section-subtitle">
+          {discovery?.start_date && discovery?.end_date ? (
+            <>
+              {new Date(discovery.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} – {new Date(discovery.end_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </>
+          ) : null}
+        </p>
+        <br></br>
         {/* Line 1: Impressions and Members Reached (2 cards at 50% each) */}
         <div className="glance-metrics-grid line-1">
           {/* Total Impressions Card */}
