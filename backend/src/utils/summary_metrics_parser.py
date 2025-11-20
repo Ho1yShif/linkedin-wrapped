@@ -89,23 +89,30 @@ def get_median_daily_impressions(file_content: bytes) -> float:
         if impressions_column is None:
             raise ValueError("'Impressions' column not found in ENGAGEMENT sheet")
 
-        # Extract all impressions values into a numpy array (starting from row 2)
-        impressions_data = []
+        # Pre-allocate numpy array for 365 days
+        impressions_data = np.zeros(365, dtype=np.float64)
+        valid_count = 0
+
+        # Fill array with impressions values (starting from row 2)
         for row_idx in range(2, ws.max_row + 1):
             cell = ws.cell(row_idx, impressions_column)
             if cell.value is not None:
                 try:
-                    impressions_data.append(float(cell.value))
+                    impressions_data[valid_count] = float(cell.value)
+                    valid_count += 1
                 except (ValueError, TypeError):
                     # Skip cells that can't be converted to numbers
                     pass
 
-        if not impressions_data:
+            if valid_count >= 365:
+                break
+
+        if valid_count == 0:
             raise ValueError("No valid impressions data found in ENGAGEMENT sheet")
 
-        # Calculate and return the median
-        median_impressions = np.median(np.array(impressions_data))
-        return float(median_impressions)
+        # Calculate and return the median using only the filled portion
+        median_impressions = float(np.median(impressions_data[:valid_count]))
+        return median_impressions
 
     except Exception as e:
         raise ValueError(f"Failed to calculate median daily impressions: {str(e)}")
