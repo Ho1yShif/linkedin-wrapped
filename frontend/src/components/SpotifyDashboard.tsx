@@ -47,7 +47,6 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
                 <div className="card-value">
                   {formatNumber(discovery?.total_impressions || 0)}
                 </div>
-                <div className="card-unit">impressions</div>
               </div>
               <div className="card-accent"></div>
             </div>
@@ -62,7 +61,6 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
                 <div className="card-value">
                   {formatNumber(discovery?.members_reached || 0)}
                 </div>
-                <div className="card-unit">people</div>
               </div>
               <div className="card-accent"></div>
             </div>
@@ -80,7 +78,6 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
                 <div className="card-value secondary-value">
                   {formatNumber(discovery?.total_engagements || 0)}
                 </div>
-                <div className="card-unit">engagements</div>
               </div>
               <div className="card-accent"></div>
             </div>
@@ -95,7 +92,6 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
                 <div className="card-value secondary-value">
                   {formatNumber(discovery?.average_impressions_per_day || 0)}
                 </div>
-                <div className="card-unit">daily average</div>
               </div>
               <div className="card-accent"></div>
             </div>
@@ -110,7 +106,6 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
                 <div className="card-value secondary-value">
                   {formatNumber(discovery?.members_reached || 0)}
                 </div>
-                <div className="card-unit">people</div>
               </div>
               <div className="card-accent"></div>
             </div>
