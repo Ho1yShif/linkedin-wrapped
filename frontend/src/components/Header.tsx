@@ -26,7 +26,7 @@ export function Header({ onLogoClick }: HeaderProps) {
           <div className="logo-wrapper">
             {/* Bow decoration */}
             <img
-              src="/bow.png"
+              src="/wide-bow.png"
               alt="Bow decoration"
               className={`ribbon-bow ${isHovered ? 'visible' : ''}`}
             />

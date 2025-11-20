@@ -77,8 +77,8 @@
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--shadow-md);
+  transition: none !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   min-height: 220px;
   display: flex;
   flex-direction: column;
@@ -88,8 +88,9 @@
 }
 
 .metric-card:hover {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 1px var(--primary-color), var(--shadow-lg);
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 2px var(--primary-color), 0 12px 32px rgba(10, 102, 194, 0.3) !important;
+  transition: none !important;
 }
 
 .card-background {
@@ -99,7 +100,7 @@
   right: 0;
   bottom: 0;
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.2s ease;
 }
 
 .metric-card:hover .card-background {
@@ -133,7 +134,7 @@
   letter-spacing: 1.2px;
   color: var(--text-tertiary);
   margin-bottom: 1rem;
-  transition: color 0.5s ease;
+  transition: color 0.2s ease;
 }
 
 .metric-card:hover .card-label {
@@ -151,7 +152,7 @@
   font-weight: 700;
   letter-spacing: -1px;
   color: var(--text-primary);
-  transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 0.2s ease;
 }
 
 .primary-value {
@@ -188,7 +189,7 @@
   color: var(--text-tertiary);
   font-weight: 500;
   margin-top: 0.25rem;
-  transition: color 0.5s ease;
+  transition: color 0.2s ease;
 }
 
 .metric-card:hover .card-unit {
@@ -201,7 +202,7 @@
   background: linear-gradient(90deg, rgba(29, 185, 84, 0.3) 0%, rgba(10, 143, 255, 0.3) 100%);
   margin-top: 1rem;
   border-radius: 2px;
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
   opacity: 0;
 }
 
@@ -209,20 +210,21 @@
   opacity: 1;
 }
 
-/* Primary Card - Larger */
+/* Primary Card - Larger and spans full width */
 .primary-card {
   grid-column: 1 / -1;
   min-height: 240px;
 }
 
-/* Secondary Card */
+/* Secondary Card - Next to engagement */
 .secondary-card {
   grid-column: span 1;
 }
 
-/* Engagement Card - Special Layout */
+/* Engagement Card - Special Layout, also spans full width in this layout */
 .engagement-card {
-  grid-column: span 1;
+  grid-column: 1 / -1;
+  min-height: 180px;
 }
 
 .engagement-content {
@@ -241,7 +243,7 @@
   padding: 1rem;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.03);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -254,7 +256,7 @@
   font-size: 1.8rem;
   margin-bottom: 0.75rem;
   display: block;
-  transition: transform 0.5s ease;
+  transition: transform 0.2s ease;
 }
 
 .metric-card:hover .engagement-icon {
@@ -267,7 +269,7 @@
   display: block;
   margin-bottom: 0.25rem;
   color: var(--text-primary);
-  transition: color 0.5s ease;
+  transition: color 0.2s ease;
 }
 
 .engagement-item:nth-child(1) .engagement-value {
@@ -297,7 +299,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  transition: color 0.5s ease;
+  transition: color 0.2s ease;
 }
 
 .metric-card:hover .engagement-label {

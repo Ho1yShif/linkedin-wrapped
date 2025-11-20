@@ -127,12 +127,13 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 2px solid rgba(10, 102, 194, 0.15);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: none !important;
 }
 
 .summary-stat-card:hover {
-  border-color: rgba(10, 102, 194, 0.4);
-  box-shadow: 0 0 0 1px rgba(10, 102, 194, 0.3), 0 4px 12px rgba(10, 102, 194, 0.15);
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 2px var(--primary-color), 0 8px 24px rgba(10, 102, 194, 0.3) !important;
+  transition: none !important;
 }
 
 .summary-stat-number {
@@ -167,15 +168,16 @@
   padding: 1.5rem;
   box-shadow: var(--shadow-md);
   border: 2px solid var(--border-color-light);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: none !important;
   position: relative;
   overflow: hidden;
   color: var(--text-primary);
 }
 
 .post-card:hover {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 1px var(--primary-color), var(--shadow-lg);
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 2px var(--primary-color), 0 12px 32px rgba(10, 102, 194, 0.3) !important;
+  transition: none !important;
 }
 
 .post-card::before {
@@ -187,13 +189,14 @@
   height: 3px;
   background: linear-gradient(90deg, #0A66C2, #378FE9);
   transform: scaleX(0);
-  transition: transform 0.3s ease;
+  transition: none !important;
   opacity: 0;
 }
 
 .post-card:hover::before {
-  transform: scaleX(1);
+  transform: scaleX(0);
   opacity: 0;
+  transition: none !important;
 }
 
 .post-header {

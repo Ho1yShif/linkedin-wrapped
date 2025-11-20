@@ -4,7 +4,7 @@ import uuid
 from ..models.schemas import DiscoveryData
 from ..utils.sheet_parser import parse_discovery_sheet
 from ..utils.discovery_parser import extract_discovery_data
-from ..utils.top_posts_parser import parse_top_posts_sheet, get_top_5_posts
+from ..utils.top_posts_parser import parse_top_posts_sheet, get_top_posts
 from ..utils.demographics_parser import parse_demographics_sheet
 from .analytics_service import store_file_data
 import io
@@ -36,7 +36,7 @@ async def process_linkedin_file(file: UploadFile) -> dict:
     top_posts = None
     try:
         all_posts = parse_top_posts_sheet(content)
-        top_posts = get_top_5_posts(all_posts)
+        top_posts = get_top_posts(all_posts)
     except ValueError as e:
         print(f"Warning: Could not parse top posts: {e}")
 

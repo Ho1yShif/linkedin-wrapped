@@ -115,7 +115,6 @@
 
 .instructions a:hover {
   text-decoration: underline;
-  color: var(--primary-dark);
 }
 
 @media (max-width: 768px) {

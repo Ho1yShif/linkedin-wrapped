@@ -78,11 +78,11 @@ def parse_top_posts_sheet(file_content: bytes) -> List[Dict[str, Any]]:
 
         # Parse impression data from columns E-G and merge with engagement data
         for row_idx in range(4, ws.max_row + 1):
-            url = ws.cell(row_idx, 5).value  # Column E
+            url = ws.cell(row_idx, 6).value  # Column E
             impressions = ws.cell(row_idx, 7).value  # Column G
 
             if url is None or impressions is None:
-                if (ws.cell(row_idx, 5).value is None and
+                if (ws.cell(row_idx, 6).value is None and
                     ws.cell(row_idx, 7).value is None):
                     break
                 continue
@@ -107,17 +107,18 @@ def parse_top_posts_sheet(file_content: bytes) -> List[Dict[str, Any]]:
 
     except Exception as e:
         raise ValueError(f"Failed to parse TOP POSTS sheet: {str(e)}")
-def get_top_5_posts(posts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+
+def get_top_posts(posts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
-    Get the top 5 posts by engagement count.
+    Get the top 6 posts by engagement count.
 
     Args:
         posts: List of post dictionaries
 
     Returns:
-        Top 5 posts with rank added
+        Top 6 posts with rank added
     """
-    top_posts = posts[:5]
+    top_posts = posts[:6]
     for idx, post in enumerate(top_posts, 1):
         post["rank"] = idx
     return top_posts
