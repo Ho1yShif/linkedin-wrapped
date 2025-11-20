@@ -147,13 +147,15 @@
 
 /* 3 rows of 2 posts grid layout */
 .posts-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
   max-width: 100%;
 }
 
 .post-card {
+  flex: 1 1 calc(50% - 0.75rem);
+  min-width: 400px;
   background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-card) 100%);
   border-radius: 12px;
   padding: 1.5rem;
@@ -388,14 +390,14 @@
 
 /* Responsive Design */
 @media (max-width: 1280px) {
-  .posts-container {
-    grid-template-columns: repeat(3, 1fr);
+  .post-card {
+    flex: 1 1 calc(33.333% - 1rem);
   }
 }
 
 @media (max-width: 1024px) {
-  .posts-container {
-    grid-template-columns: repeat(2, 1fr);
+  .post-card {
+    flex: 1 1 calc(50% - 0.75rem);
   }
 }
 
@@ -417,9 +419,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* 2-column grid on tablet for 2 rows of 2 or 3 posts */
-  .posts-container {
-    grid-template-columns: repeat(2, 1fr);
+  /* Single column on tablet and mobile */
+  .post-card {
+    flex: 1 1 100% !important;
+    min-width: 100% !important;
   }
 
   .post-card {
@@ -467,9 +470,13 @@
     font-size: 1.5rem;
   }
 
-  /* Keep 2-column grid on mobile */
+  /* Single column on mobile */
+  .post-card {
+    flex: 1 1 100% !important;
+    min-width: 100% !important;
+  }
+
   .posts-container {
-    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
