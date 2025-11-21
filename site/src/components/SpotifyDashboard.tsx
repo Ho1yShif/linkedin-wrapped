@@ -24,21 +24,29 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
     return num.toString();
   };
 
+  const parseISODate = (dateString: string): Date => {
+    // Parse ISO date string (YYYY-MM-DD) safely to avoid timezone issues
+    const [year, month, day] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  };
+
   return (
     <>
-      {/* Your Year at a Glance - Unified Metrics Section */}
-      <div className="year-at-glance-section">
-        <h2 className="section-title">Your year at a glance</h2>
+      {/* Your <year> Wrapped - Unified Metrics Section */}
+      <div className="wrapped-section">
+        <h2 className="section-title">
+        Your {discovery?.end_date ? parseISODate(discovery.end_date).toLocaleDateString('en-US', {year: 'numeric' }) : '2024'} Wrapped
+      </h2>
         <p className="section-subtitle">
           {discovery?.start_date && discovery?.end_date ? (
             <>
-              {new Date(discovery.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} – {new Date(discovery.end_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              {parseISODate(discovery.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} – {parseISODate(discovery.end_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </>
           ) : null}
         </p>
         <br></br>
         {/* Line 1: Impressions and Members Reached (2 cards at 50% each) */}
-        <div className="glance-metrics-grid line-1">
+        <div className="warpped-metrics-grid line-1">
           {/* Total Impressions Card */}
           <div className="metric-card">
             <div className="card-background gradient-1"></div>
@@ -69,7 +77,7 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
         </div>
 
         {/* Line 2: Total Engagements, Total Impressions (duplicate), and Average Impressions Per Day */}
-        <div className="glance-metrics-grid line-2">
+        <div className="warpped-metrics-grid line-2">
           {/* Total Engagements Card */}
           <div className="metric-card">
             <div className="card-background gradient-3"></div>

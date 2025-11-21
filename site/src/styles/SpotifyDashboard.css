@@ -1,31 +1,31 @@
 /* Spotify Dashboard Styling - Unified Dark Mode Design */
 
-/* Your Year at a Glance - Unified Section */
-.year-at-glance-section {
+/* Year at a glance - Unified Section */
+.wrapped-section {
   background: none;
   padding: 0 1rem;
   border: none;
 }
 
 /* Metrics Grid - 3 different layouts for 3 lines */
-.glance-metrics-grid {
+.warpped-metrics-grid {
   display: grid;
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
 /* Line 1: 2 cards at 50% each */
-.glance-metrics-grid.line-1 {
+.warpped-metrics-grid.line-1 {
   grid-template-columns: repeat(2, 1fr);
 }
 
 /* Line 2: 3 cards */
-.glance-metrics-grid.line-2 {
+.warpped-metrics-grid.line-2 {
   grid-template-columns: repeat(3, 1fr);
 }
 
 /* Line 3: 3 cards */
-.glance-metrics-grid.line-3 {
+.warpped-metrics-grid.line-3 {
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -249,7 +249,7 @@
     font-size: 1rem;
   }
 
-  .year-at-glance-section {
+  .wrapped-section {
     margin: 0 auto 2.5rem;
   }
 
@@ -258,7 +258,7 @@
     margin-bottom: 1.5rem;
   }
 
-  .glance-metrics-grid {
+  .warpped-metrics-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
     margin-bottom: 1.5rem;
@@ -290,7 +290,7 @@
     font-size: 0.875rem;
   }
 
-  .year-at-glance-section {
+  .wrapped-section {
     margin: 0 auto 1.5rem;
   }
 
@@ -299,7 +299,7 @@
     margin-bottom: 1rem;
   }
 
-  .glance-metrics-grid {
+  .warpped-metrics-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
     margin-bottom: 1rem;

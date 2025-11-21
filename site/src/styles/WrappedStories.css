@@ -1,0 +1,355 @@
+/* Wrapped Stories Container */
+.wrapped-stories-container {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 4rem;
+  padding: 1rem;
+}
+
+/* Story Progress Bar */
+.story-progress-container {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.progress-bars {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.progress-bar:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.progress-bar.active .progress-fill,
+.progress-bar.completed {
+  background-color: rgba(255, 255, 255, 0.8);
+  animation: progressFill 0.3s ease forwards;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+}
+
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Story Viewport */
+.story-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 12;
+  max-height: 80vh;
+  margin-bottom: 1.5rem;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+/* Story Card */
+.story-card {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.story-card.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  z-index: 10;
+}
+
+/* Card Content Wrapper */
+.card-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+}
+
+.card-header {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  flex: 1;
+  text-align: left;
+}
+
+.card-badge {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+}
+
+/* Card Body */
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.card-icon {
+  font-size: 4rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+.card-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.7));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  word-break: break-word;
+}
+
+.card-label {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 90%;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card-context {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 90%;
+  line-height: 1.5;
+}
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.branding {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Story Controls */
+.story-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.control-button {
+  padding: 0.7rem 1.5rem;
+  background-color: rgba(10, 102, 194, 0.2);
+  border: 1px solid rgba(10, 102, 194, 0.4);
+  color: #0A66C2;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.control-button:hover:not(:disabled) {
+  background-color: rgba(10, 102, 194, 0.3);
+  border-color: rgba(10, 102, 194, 0.6);
+  transform: translateY(-2px);
+}
+
+.control-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.control-button.autoplay-button.playing {
+  background-color: rgba(40, 167, 69, 0.2);
+  border-color: rgba(40, 167, 69, 0.4);
+  color: #28a745;
+}
+
+/* Story Info */
+.story-info {
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Click Zones (for visual debugging) */
+.click-zones {
+  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.click-zones.debug {
+  display: flex;
+}
+
+.click-zone {
+  flex: 1;
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .wrapped-stories-container {
+    padding: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .story-viewport {
+    aspect-ratio: 9 / 14;
+    margin-bottom: 1rem;
+  }
+
+  .story-card {
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .card-icon {
+    font-size: 3rem;
+  }
+
+  .card-value {
+    font-size: 2.8rem;
+  }
+
+  .card-label {
+    font-size: 1rem;
+  }
+
+  .story-controls {
+    gap: 0.5rem;
+  }
+
+  .control-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapped-stories-container {
+    padding: 0;
+    margin-bottom: 2rem;
+  }
+
+  .story-viewport {
+    aspect-ratio: 9 / 16;
+  }
+
+  .story-card {
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+  }
+
+  .card-value {
+    font-size: 2.2rem;
+  }
+
+  .card-label {
+    font-size: 0.9rem;
+  }
+
+  .card-badge {
+    width: 100%;
+    text-align: center;
+  }
+
+  .control-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}

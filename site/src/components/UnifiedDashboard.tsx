@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { SpotifyDashboard } from './SpotifyDashboard';
 import { TopPostsDisplay } from './TopPostsDisplay';
 import { DemographicsView } from './DemographicsView';
 import { CacheIndicator } from './CacheIndicator';
+import { WrappedStoriesContainer } from './WrappedStories/WrappedStoriesContainer';
+import { generateShareableCards } from '../utils/cardDataMapper';
 import type { EngagementMetrics, LinkedInTopPost, DemographicInsights } from '@types';
+import type { ParsedExcelData } from '../utils/excel/types';
 import '../styles/UnifiedDashboard.css';
 
 interface UnifiedDashboardProps {
@@ -25,6 +28,18 @@ export const UnifiedDashboard: React.FC<UnifiedDashboardProps> = ({
   const discoveryData = data.discovery_data as any;
   const topPosts: LinkedInTopPost[] = data.top_posts || [];
 
+  // Generate shareable cards for wrapped stories
+  const wrappedCards = useMemo(() => {
+    if (!discoveryData) return [];
+    const excelData: ParsedExcelData = {
+      discovery_data: discoveryData,
+      top_posts: data.top_posts,
+      demographics,
+      engagement_by_day: data.engagementByDay,
+    };
+    return generateShareableCards(excelData);
+  }, [discoveryData, data.top_posts, demographics, data.engagementByDay]);
+
   return (
     <div className="unified-dashboard">
       {isFromCache && uploadDate && (
@@ -33,6 +48,12 @@ export const UnifiedDashboard: React.FC<UnifiedDashboardProps> = ({
           onClear={onClearCache}
         />
       )}
+
+      {/* Wrapped Stories Section (at the top) */}
+      {wrappedCards.length > 0 && (
+        <WrappedStoriesContainer cards={wrappedCards} autoPlayDuration={5000} />
+      )}
+
       {/* Main Dashboard Section */}
       {discoveryData && (
         <SpotifyDashboard
