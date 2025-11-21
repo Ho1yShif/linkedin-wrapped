@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
-# frontend.sh - start frontend (Vite) with hot reload
-# Usage: ./bin/frontend.sh [--port PORT] [--help]
+# preview.sh - start frontend (Vite) with hot reload
+# Usage: ./bin/preview.sh [--port PORT] [--help]
 
 print_help() {
   cat <<-EOF
@@ -15,7 +15,7 @@ Options:
 This script starts the frontend development server with hot reload.
 It expects to be placed in the repository `bin/` directory and run from the repo root.
 
-Frontend: npm --prefix frontend run dev
+Frontend: npm --prefix site run dev
 
 Before running, ensure you have installed frontend deps (npm install).
 EOF
@@ -88,4 +88,4 @@ echo "Starting frontend (Vite) on port $FRONTEND_PORT..."
 
 cd "$ROOT_DIR"
 # pass PORT env var to Vite
-PORT="$FRONTEND_PORT" npm --prefix frontend run dev
+PORT="$FRONTEND_PORT" npm --prefix site run dev

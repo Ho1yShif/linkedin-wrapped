@@ -26,7 +26,7 @@ Created by [Shifra Williams](https://www.linkedin.com/in/shifra-williams/) and [
 1. Clone the repository
    ```bash
    git clone https://github.com/Ho1yShif/linkedin-wrapped.git
-   cd linkedin-wrapped/frontend
+   cd linkedin-wrapped/site
    ```
 
 1. Install dependencies
