@@ -3,9 +3,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 0.75rem;
-  width: 100%;
+  width: auto;
 }
 
 /* Share Button Container with Logo */
@@ -26,6 +26,15 @@
   opacity: 0.95;
 }
 
+/* LinkedIn Logo Inside Button */
+.linkedin-logo-btn {
+  width: 1.3rem;
+  height: 1.3rem;
+  object-fit: contain;
+  filter: brightness(1.1);
+  opacity: 0.95;
+}
+
 /* Share Button */
 .share-button {
   display: flex;
@@ -33,9 +42,8 @@
   justify-content: center;
   gap: 0.6rem;
   padding: 0.9rem 1.8rem;
-  background: linear-gradient(135deg, rgba(10, 102, 194, 0.3), rgba(10, 102, 194, 0.15));
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
+  background: transparent;
+  border: none;
   color: rgba(255, 255, 255, 0.95);
   font-size: 1rem;
   font-weight: 700;
@@ -49,7 +57,6 @@
 }
 
 .share-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, rgba(10, 102, 194, 0.4), rgba(10, 102, 194, 0.25));
   border-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 6px 20px rgba(10, 102, 194, 0.3);
   transform: none;

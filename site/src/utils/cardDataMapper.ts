@@ -97,7 +97,7 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
       },
       shareText: generateShareText('members-reached', data),
       backgroundColor: '#0F0F0F',
-      gradient: 'linear-gradient(135deg, #00D9FF 0%, #0A8FFF 100%)',
+      gradient: 'linear-gradient(135deg, #E63946 0%, #F77F88 100%)',
     });
   }
 
@@ -141,7 +141,7 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         value: topIndustry.name,
         label: `${percentage}% of Your Audience`,
         icon: '💼',
-        context: 'Your primary professional segment',
+        context: 'Your primary professional industry',
         percentage: topIndustry.percentage,
         profileId: 'industry',
         avatarColor: getAvatarColor('top-industry'),
@@ -183,7 +183,7 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
       title: 'Popular Professional',
       data: {
         value: `+${formatNumber(data.discovery_data.new_followers)}`,
-        label: 'New Followers in 2025',
+        label: 'New Followers this year',
         icon: '🎉',
         context: 'Your community is growing!',
         profileId: 'growth',
@@ -191,7 +191,7 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
       },
       shareText: generateShareText('new-followers', data),
       backgroundColor: '#0F0F0F',
-      gradient: 'linear-gradient(135deg, #E63946 0%, #F77F88 100%)',
+      gradient: 'linear-gradient(135deg, #00D9FF 0%, #0A8FFF 100%)',
     });
   }
 
@@ -222,13 +222,13 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
   cards.push({
     id: 'year-summary',
     type: 'year-summary',
-    title: 'LinkedIn Wrapped',
+    title: 'Year in review',
     data: {
       impressions: formatNumber(data.discovery_data?.total_impressions || 0),
       membersReached: formatNumber(data.discovery_data?.members_reached || 0),
       engagements: formatNumber(data.discovery_data?.total_engagements || 0),
       newFollowers: formatNumber(data.discovery_data?.new_followers || 0),
-      icon: '🎊',
+      icon: '🗓️',
       context: 'Your complete 2025 LinkedIn impact',
       profileId: 'summary',
       avatarColor: getAvatarColor('year-summary'),

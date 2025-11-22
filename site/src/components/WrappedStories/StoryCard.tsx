@@ -68,6 +68,14 @@ export const StoryCard: React.FC<StoryCardProps> = ({
           <h2 className="card-title">{card.title}</h2>
         </div>
 
+        {/* Circular Logo */}
+        <img
+          src="/wrapped-logo.png"
+          alt="LinkedIn Wrapped"
+          className="card-circular-logo"
+        />
+
+
         <div className="card-body">
           <span className="card-icon">{card.data.icon}</span>
 
@@ -138,7 +146,7 @@ export const StoryCard: React.FC<StoryCardProps> = ({
         </div>
 
         <div className="card-footer">
-          <div className="branding">LinkedIn Wrapped 2025</div>
+          <div className="branding">LinkedIn Wrapped</div>
           <ShareButton
             cardId={card.id}
             shareText={card.shareText}

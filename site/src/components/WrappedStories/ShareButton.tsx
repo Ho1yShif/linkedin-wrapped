@@ -63,17 +63,17 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   return (
     <div className="share-button-wrapper">
       <div className="share-button-container">
-        <img
-          src="/linkedin-logo.png"
-          alt="LinkedIn"
-          className="linkedin-logo"
-        />
         <button
           className="share-button"
           onClick={handleShare}
           disabled={isExporting}
           aria-label="Share this card on LinkedIn"
         >
+          <img
+            src="/linkedin-logo.png"
+            alt="LinkedIn"
+            className="linkedin-logo-btn"
+          />
           {isExporting ? (
             <>
               <span className="spinner"></span>
