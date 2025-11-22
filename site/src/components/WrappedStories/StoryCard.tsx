@@ -6,49 +6,19 @@ interface StoryCardProps {
   card: ShareableCard;
   isActive: boolean;
   cardIndex: number;
-  onNext: () => void;
-  onPrevious: () => void;
+  cardRef?: React.RefObject<HTMLDivElement>;
+  allCards?: React.RefObject<HTMLDivElement>[];
 }
 
 export const StoryCard: React.FC<StoryCardProps> = ({
   card,
   isActive,
   cardIndex,
-  onNext,
-  onPrevious,
+  cardRef: externalCardRef,
+  allCards,
 }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const clickZoneWidth = 30; // percentage of screen width for click zones
-
-  const handleLeftClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const threshold = (rect.width * clickZoneWidth) / 100;
-
-    if (clickX < threshold) {
-      onPrevious();
-    }
-  };
-
-  const handleRightClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const threshold = (rect.width * (100 - clickZoneWidth)) / 100;
-
-    if (clickX > threshold) {
-      onNext();
-    }
-  };
-
-  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Check left zone
-    handleLeftClick(e);
-    // Check right zone
-    handleRightClick(e);
-  };
+  const internalCardRef = useRef<HTMLDivElement>(null);
+  const cardRef = externalCardRef || internalCardRef;
 
   return (
     <div
@@ -58,7 +28,6 @@ export const StoryCard: React.FC<StoryCardProps> = ({
         '--card-gradient': card.gradient,
         '--card-bg-color': card.backgroundColor,
       } as React.CSSProperties & { [key: string]: string }}
-      onClick={handleCardClick}
       role="region"
       aria-label={`Card ${cardIndex + 1}: ${card.title}`}
     >
@@ -151,14 +120,9 @@ export const StoryCard: React.FC<StoryCardProps> = ({
             cardId={card.id}
             shareText={card.shareText}
             cardRef={cardRef as React.RefObject<HTMLDivElement>}
+            allCards={allCards}
           />
         </div>
-      </div>
-
-      {/* Click Zone Indicators (hidden in production) */}
-      <div className="click-zones" aria-hidden="true">
-        <div className="click-zone left-zone" title="Click to go previous"></div>
-        <div className="click-zone right-zone" title="Click to go next"></div>
       </div>
     </div>
   );

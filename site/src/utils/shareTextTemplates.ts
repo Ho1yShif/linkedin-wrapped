@@ -121,5 +121,28 @@ Get your own LinkedIn Wrapped to see your ${year} stats and share your impact.
     },
   };
 
-  return templates[cardType]?.(data) || 'Check out my LinkedIn Wrapped stats!';
+  return templates[cardType]?.(data) || getGeneralWrappedShareText(data);
+}
+
+/**
+ * Generate a general LinkedIn wrapped share text
+ * Used when sharing the entire wrapped experience
+ */
+export function getGeneralWrappedShareText(data: ParsedExcelData): string {
+  const year = getWrappedYear(data.discovery_data);
+  const impressions = formatNumber(data.discovery_data?.total_impressions || 0);
+  const reached = formatNumber(data.discovery_data?.members_reached || 0);
+  const followers = formatNumber(data.discovery_data?.new_followers || 0);
+
+  return `🎁 I just got my LinkedIn ${year} Wrapped!
+
+🚀 ${impressions} impressions
+👥 ${reached} members reached
+🎉 +${followers} new followers
+
+It's been an incredible year connecting with amazing professionals and sharing insights.
+
+Get your LinkedIn Wrapped now to discover your ${year} impact and share with your network!
+
+#LinkedInWrapped #${year}Recap #ProfessionalGrowth #LinkedIn`;
 }

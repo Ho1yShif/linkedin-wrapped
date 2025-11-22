@@ -1,101 +1,239 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { exportCardAsImage } from '../../utils/imageExport';
-import { copyToClipboard } from '../../utils/clipboard';
+import { exportCardsAsPDF } from '../../utils/pdfExport';
+import { DownloadInstructions } from './DownloadInstructions';
 import '../../styles/ShareButton.css';
 
 interface ShareButtonProps {
   cardId: string;
   shareText: string;
   cardRef: React.RefObject<HTMLDivElement>;
+  allCards?: React.RefObject<HTMLDivElement>[];
 }
 
+type ExportOption = 'current-card' | 'all-cards' | null;
+
+/**
+ * ShareButton component with dropdown menu for export options
+ * Supports PNG export for single cards and PDF export for all cards
+ */
 export const ShareButton: React.FC<ShareButtonProps> = ({
   cardId,
   shareText,
   cardRef,
+  allCards = [],
 }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [dropdownPosition, setDropdownPosition] = useState<{ top: string; left: string }>({ top: '0px', left: '0px' });
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleShare = useCallback(async () => {
-    if (!cardRef.current) return;
+  // Update dropdown position when it opens
+  useEffect(() => {
+    if (isDropdownOpen && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      // Position dropdown below the button, centered horizontally with the button
+      const top = rect.bottom + 10; // 10px below button
+      const left = rect.left + (rect.width / 2) - 140; // Center dropdown (280px / 2)
+
+      // Keep dropdown within viewport
+      const adjustedLeft = Math.max(10, Math.min(window.innerWidth - 290, left));
+
+      setDropdownPosition({ top: `${top}px`, left: `${adjustedLeft}px` });
+    }
+  }, [isDropdownOpen]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return undefined;
+  }, [isDropdownOpen]);
+
+  /**
+   * Handle single card PNG export
+   */
+  const handleExportCurrentCard = useCallback(async () => {
+    if (!cardRef.current) {
+      setError('Card element not found');
+      return;
+    }
 
     setIsExporting(true);
     setError(null);
+    setIsDropdownOpen(false);
 
     try {
-      // Step 1: Export card as image
       const imageBlob = await exportCardAsImage(cardRef.current);
 
-      // Step 2: Download image
+      // Download image
       const url = URL.createObjectURL(imageBlob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `linkedin-wrapped-2025-${cardId}.png`;
+      link.download = `linkedin-wrapped-${cardId}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
 
-      // Step 3: Copy text to clipboard
-      await copyToClipboard(shareText);
-
-      // Step 4: Open LinkedIn share page with pre-filled text
-      // Note: LinkedIn doesn't support pre-filling text via URL parameters for security reasons
-      // Users will need to paste the copied text manually
-      const linkedInUrl = 'https://www.linkedin.com/feed/';
-      window.open(linkedInUrl, '_blank', 'noopener,noreferrer');
-
-      // Step 5: Show success message
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 5000);
+      // Show instructions
+      setShowInstructions(true);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to share';
+      const errorMessage = err instanceof Error ? err.message : 'Failed to export card';
       setError(errorMessage);
-      console.error('Share failed:', err);
-      setTimeout(() => setError(null), 5000);
+      console.error('Card export failed:', err);
     } finally {
       setIsExporting(false);
     }
-  }, [cardRef, cardId, shareText]);
+  }, [cardRef, cardId]);
+
+  /**
+   * Handle PDF export of all cards
+   */
+  const handleExportAllCards = useCallback(async () => {
+    if (!allCards || allCards.length === 0) {
+      setError('No cards available for PDF export');
+      return;
+    }
+
+    // Filter out null refs and extract elements
+    const cardElements = allCards
+      .map(ref => ref.current)
+      .filter((el): el is Exclude<typeof el, null | undefined> => el !== null && el !== undefined);
+
+    if (cardElements.length === 0) {
+      setError('Card elements not found');
+      return;
+    }
+
+    setIsExporting(true);
+    setError(null);
+    setIsDropdownOpen(false);
+
+    try {
+      const year = new Date().getFullYear();
+      const filename = `linkedin-wrapped-${year}.pdf`;
+
+      await exportCardsAsPDF(cardElements, filename);
+
+      // Show instructions
+      setShowInstructions(true);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to export PDF';
+      setError(errorMessage);
+      console.error('PDF export failed:', err);
+    } finally {
+      setIsExporting(false);
+    }
+  }, [allCards]);
+
+  /**
+   * Handle export option selection
+   */
+  const handleExportOption = useCallback(
+    (option: ExportOption) => {
+      if (option === 'current-card') {
+        handleExportCurrentCard();
+      } else if (option === 'all-cards') {
+        handleExportAllCards();
+      }
+    },
+    [handleExportCurrentCard, handleExportAllCards]
+  );
+
+  /**
+   * Toggle dropdown visibility
+   */
+  const handleToggleDropdown = useCallback(() => {
+    if (!isExporting) {
+      setIsDropdownOpen(prev => !prev);
+    }
+  }, [isExporting]);
 
   return (
     <div className="share-button-wrapper">
       <div className="share-button-container">
+        {/* Main Share Button */}
         <button
+          ref={buttonRef}
           className="share-button"
-          onClick={handleShare}
+          onClick={handleToggleDropdown}
           disabled={isExporting}
-          aria-label="Share this card on LinkedIn"
+          aria-label="Share and export LinkedIn Wrapped"
+          aria-expanded={isDropdownOpen}
+          aria-haspopup="menu"
         >
           <img
             src="/linkedin-logo.png"
             alt="LinkedIn"
             className="linkedin-logo-btn"
           />
-          {isExporting ? (
-            <>
-              <span className="spinner"></span>
-              <span>Preparing...</span>
-            </>
-          ) : (
-            <span>Share</span>
-          )}
+          <span>Share</span>
+          {isExporting && <span className="spinner" />}
         </button>
       </div>
 
-      {showSuccess && (
-        <div className="share-feedback success">
-          ✅ Image downloaded & text copied! Open LinkedIn to paste.
-        </div>
+      {/* Dropdown Menu - Rendered as Portal to escape stacking context */}
+      {isDropdownOpen && !isExporting && createPortal(
+        <div
+          className="share-dropdown-menu"
+          role="menu"
+          style={dropdownPosition}
+          ref={dropdownRef}
+        >
+          <button
+            className="dropdown-option"
+            onClick={() => handleExportOption('current-card')}
+            role="menuitem"
+          >
+            <span className="option-icon">📄</span>
+            <div className="option-content">
+              <div className="option-title">Share current card</div>
+              <div className="option-description">Download current card as PNG</div>
+            </div>
+          </button>
+
+          <button
+            className="dropdown-option"
+            onClick={() => handleExportOption('all-cards')}
+            role="menuitem"
+          >
+            <span className="option-icon">📂</span>
+            <div className="option-content">
+              <div className="option-title">Share all cards</div>
+              <div className="option-description">Download all cards as a single PDF file</div>
+            </div>
+          </button>
+        </div>,
+        document.body
       )}
 
+      {/* Error Message */}
       {error && (
         <div className="share-feedback error">
           ❌ {error}
         </div>
       )}
+
+      {/* Download Instructions Modal */}
+      <DownloadInstructions
+        isVisible={showInstructions}
+        shareText={shareText}
+        onDismiss={() => setShowInstructions(false)}
+      />
     </div>
   );
 };

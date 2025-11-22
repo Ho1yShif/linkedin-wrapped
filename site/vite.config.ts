@@ -15,4 +15,10 @@ export default defineConfig({
       '@store': path.resolve(__dirname, './src/store/index.ts'),
     },
   },
+  build: {
+    rollupOptions: {
+      // Mark jsPDF as a peer dependency to avoid bundling issues
+      external: [],
+    },
+  },
 })

@@ -1,6 +1,11 @@
 # TODO
-- Write copy for post prefill share link for people to get their linkedin wrapped.
+- Write copy for post prefill share link for people to get their linkedin wrapped
     - Perhaps include LinkedIn stats here
 - Include a disclaimer showing that we wished we could make this upload directly
 - Make share button work such that it downloads a card screenshot or PDF carousel of all screenshots without text selected
 - Update docs with new instructions on bin preview and usage
+- Ensure all wrapped card elements stay visible in mobile view and when webpage changes
+- Remove unused code
+- Switch out gradients for engagement expert and popular professional cards
+- Still need to fix or remove top post wrapped card! Looks terrible
+- Remove hover movement. from instructions buttons, make buttons same side

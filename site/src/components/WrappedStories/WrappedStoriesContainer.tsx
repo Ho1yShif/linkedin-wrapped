@@ -18,6 +18,16 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
   const [userManuallyPaused, setUserManuallyPaused] = useState(false);
   const autoPlayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Create refs for all cards for PDF export
+  const cardRefsRef = useRef<React.RefObject<HTMLDivElement>[]>([]);
+
+  // Initialize card refs array
+  if (cardRefsRef.current.length !== cards.length) {
+    cardRefsRef.current = Array.from({ length: cards.length }, (_, i) =>
+      cardRefsRef.current[i] || React.createRef<HTMLDivElement>()
+    );
+  }
+
   // Validate we have cards
   if (!cards || cards.length === 0) {
     return null;
@@ -174,9 +184,8 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
           card={currentCard}
           isActive={true}
           cardIndex={currentCardIndex}
-          totalCards={totalCards}
-          onNext={handleNext}
-          onPrevious={handlePrevious}
+          cardRef={cardRefsRef.current[currentCardIndex]}
+          allCards={cardRefsRef.current}
         />
       </div>
 
