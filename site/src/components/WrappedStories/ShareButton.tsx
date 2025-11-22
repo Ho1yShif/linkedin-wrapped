@@ -201,8 +201,8 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
           >
             <span className="option-icon">📄</span>
             <div className="option-content">
-              <div className="option-title">Share current card</div>
-              <div className="option-description">Download current card as PNG</div>
+              <div className="option-title">Current card</div>
+              <div className="option-description">Export current card as a PNG</div>
             </div>
           </button>
 
@@ -213,8 +213,8 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
           >
             <span className="option-icon">📂</span>
             <div className="option-content">
-              <div className="option-title">Share all cards</div>
-              <div className="option-description">Download all cards as a single PDF file</div>
+              <div className="option-title">All cards</div>
+              <div className="option-description">Export all cards as a single PDF file</div>
             </div>
           </button>
         </div>,

@@ -1,68 +1,33 @@
 /**
  * Utility to export story cards as a PDF document
- * Uses jsPDF and html2canvas for cross-browser compatibility
+ * Uses jsPDF with html2canvas for rendering
  */
 
 let jsPDFLib: any = null;
 let html2canvas: any = null;
 
 /**
- * Dynamically load required libraries
+ * Dynamically load jsPDF and html2canvas
  */
 async function loadLibraries() {
-  if (!jsPDFLib || !html2canvas) {
-    try {
-      // Load html2canvas
+  try {
+    if (!jsPDFLib) {
+      const pdfModule = await import('jspdf');
+      jsPDFLib = pdfModule.jsPDF;
+    }
+
+    if (!html2canvas) {
       const canvasModule = await import('html2canvas');
       html2canvas = canvasModule.default;
-
-      // Load jsPDF - use dynamic require-like approach
-      try {
-        // @ts-ignore - dynamic import of jsPDF
-        const pdfModule = await import('jspdf');
-        jsPDFLib = pdfModule.jsPDF;
-      } catch {
-        // Try alternative export path
-        // @ts-ignore - dynamic import fallback
-        const pdfModule = await import('jspdf');
-        jsPDFLib = pdfModule.default;
-      }
-    } catch (err) {
-      throw new Error('Failed to load PDF export libraries. Ensure jsPDF and html2canvas are installed.');
     }
+  } catch (err) {
+    throw new Error('Failed to load PDF export libraries');
   }
 }
 
 /**
- * Prepare a card element for export by cloning and removing interactive elements
- * Removes any text selection styling and share buttons
- */
-function prepareCardForExport(element: HTMLElement): HTMLElement {
-  // Clone the element to avoid modifying the original
-  const clone = element.cloneNode(true) as HTMLElement;
-
-  // Remove any share buttons
-  const shareButtons = clone.querySelectorAll('.share-button-wrapper, .share-button, [class*="share"]');
-  shareButtons.forEach(btn => btn.remove());
-
-  // Remove any text selection styling
-  clone.style.userSelect = 'none';
-  (clone as any).style.webkitUserSelect = 'none';
-  (clone as any).style.msUserSelect = 'none';
-  (clone as any).style.MozUserSelect = 'none';
-
-  // Ensure no element is focused or highlighted
-  clone.querySelectorAll('*').forEach(el => {
-    (el as HTMLElement).style.outline = 'none';
-    (el as HTMLElement).style.boxShadow = 'none';
-  });
-
-  return clone;
-}
-
-/**
  * Export all story cards as a PDF document
- * One page per card or multiple cards per page depending on height
+ * One page per card, sized to fit the page
  *
  * @param cardElements Array of card DOM elements to export
  * @param filename Optional filename for the PDF (default: linkedin-wrapped.pdf)
@@ -78,12 +43,11 @@ export async function exportCardsAsPDF(
   await loadLibraries();
 
   try {
-    if (!jsPDFLib) {
-      throw new Error('jsPDF library failed to load');
+    if (!jsPDFLib || !html2canvas) {
+      throw new Error('Failed to load required libraries');
     }
 
-    // Initialize PDF with A4 dimensions in portrait mode
-    // Units are in mm, A4 = 210x297mm
+    // Initialize PDF with A4 dimensions
     const PDF = new jsPDFLib({
       orientation: 'portrait',
       unit: 'mm',
@@ -94,74 +58,100 @@ export async function exportCardsAsPDF(
     const pageHeight = PDF.internal.pageSize.getHeight();
     const margin = 10; // 10mm margins
 
-    let isFirstPage = true;
-    let currentYPosition = margin;
-
-    // Process each card
+    // Process each card on its own page
     for (let i = 0; i < cardElements.length; i++) {
       const cardElement = cardElements[i];
-      const preparedCard = prepareCardForExport(cardElement);
-
-      // Temporarily add to DOM for rendering
-      const tempContainer = document.createElement('div');
-      tempContainer.style.position = 'absolute';
-      tempContainer.style.left = '-9999px';
-      tempContainer.style.top = '-9999px';
-      tempContainer.appendChild(preparedCard);
-      document.body.appendChild(tempContainer);
 
       try {
-        // Capture card as canvas
-        const canvas = await html2canvas(preparedCard, {
-          scale: 2,
-          backgroundColor: '#0F0F0F',
-          logging: false,
-          useCORS: true,
-          allowTaint: true,
-          pixelRatio: 2,
-        });
+        // Clone the element
+        const clone = cardElement.cloneNode(true) as HTMLElement;
 
-        // Calculate dimensions to fit on page
-        // Maintain aspect ratio of the card (9:14 for story format)
-        const maxWidth = pageWidth - 2 * margin;
-        const maxHeight = pageHeight - 2 * margin;
+        // Remove share buttons
+        const shareButtons = clone.querySelectorAll('.share-button-wrapper, .share-button, [class*="share"]');
+        shareButtons.forEach(btn => btn.remove());
 
-        // Calculate proportions
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
-        const aspectRatio = canvasHeight / canvasWidth;
+        // Get dimensions
+        const rect = cardElement.getBoundingClientRect();
+        const width = Math.ceil(rect.width || 400);
+        const height = Math.ceil(rect.height || 600);
 
-        let imageWidth = maxWidth;
-        let imageHeight = imageWidth * aspectRatio;
+        // Set up clone styling
+        clone.style.width = `${width}px`;
+        clone.style.height = `${height}px`;
+        clone.style.margin = '0';
+        clone.style.padding = window.getComputedStyle(cardElement).padding;
+        clone.style.boxSizing = 'border-box';
+        clone.style.position = 'relative';
+        clone.style.display = 'block';
 
-        // If height exceeds page, scale down
-        if (imageHeight > maxHeight) {
-          imageHeight = maxHeight;
-          imageWidth = imageHeight / aspectRatio;
+        // Place in DOM at visible location
+        const container = document.createElement('div');
+        container.style.position = 'fixed';
+        container.style.left = '0';
+        container.style.top = '0';
+        container.style.width = `${width}px`;
+        container.style.height = `${height}px`;
+        container.style.zIndex = '999999';
+        container.style.pointerEvents = 'none';
+        container.style.opacity = '0';
+
+        container.appendChild(clone);
+        document.body.appendChild(container);
+
+        try {
+          // Capture using html2canvas
+          const canvas = await html2canvas(clone, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#0F0F0F',
+            logging: false,
+            width: width,
+            height: height,
+            windowHeight: height,
+            windowWidth: width,
+          });
+
+          // Calculate dimensions to fit on page while maintaining aspect ratio
+          const maxWidth = pageWidth - 2 * margin;
+          const maxHeight = pageHeight - 2 * margin;
+
+          const canvasWidth = canvas.width;
+          const canvasHeight = canvas.height;
+          const aspectRatio = canvasHeight / canvasWidth;
+
+          let imageWidth = maxWidth;
+          let imageHeight = imageWidth * aspectRatio;
+
+          // If height exceeds page, scale down
+          if (imageHeight > maxHeight) {
+            imageHeight = maxHeight;
+            imageWidth = imageHeight / aspectRatio;
+          }
+
+          // Center the image on the page
+          const xPosition = (pageWidth - imageWidth) / 2;
+          const yPosition = (pageHeight - imageHeight) / 2;
+
+          // Convert canvas to image data
+          const imageData = canvas.toDataURL('image/png');
+
+          // Add image to PDF
+          PDF.addImage(imageData, 'PNG', xPosition, yPosition, imageWidth, imageHeight);
+
+          // Add new page for next card (except for the last card)
+          if (i < cardElements.length - 1) {
+            PDF.addPage();
+          }
+        } finally {
+          // Clean up container
+          if (document.body.contains(container)) {
+            document.body.removeChild(container);
+          }
         }
-
-        // Center the image on the page
-        const xPosition = (pageWidth - imageWidth) / 2;
-
-        // Check if we need a new page
-        if (!isFirstPage && currentYPosition + imageHeight > pageHeight - margin) {
-          PDF.addPage();
-          currentYPosition = margin;
-        }
-
-        // Convert canvas to image
-        const imageData = canvas.toDataURL('image/png');
-
-        // Add image to PDF
-        PDF.addImage(imageData, 'PNG', xPosition, currentYPosition, imageWidth, imageHeight);
-
-        // Update position for next card or add new page
-        currentYPosition += imageHeight + margin;
-
-        isFirstPage = false;
-      } finally {
-        // Clean up temporary container
-        document.body.removeChild(tempContainer);
+      } catch (err) {
+        console.error(`Failed to export card ${i + 1}:`, err);
+        // Continue with next card even if one fails
       }
     }
 

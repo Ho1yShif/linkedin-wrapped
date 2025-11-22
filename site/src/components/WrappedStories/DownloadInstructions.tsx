@@ -76,7 +76,7 @@ export const DownloadInstructions: React.FC<DownloadInstructionsProps> = ({
           {/* Disclaimer */}
           <div className="instructions-disclaimer">
             <p className="disclaimer-text">
-               𝒊 &nbsp; We can't automatically attach the file to your LinkedIn post without violating LinkedIn's terms of service. <br></br>
+               𝒊 <br></br> We can't automatically attach the file to your LinkedIn post without violating LinkedIn's terms of service.
               These manual steps ensure we stay compliant and respect LinkedIn's policies.
             </p>
           </div>

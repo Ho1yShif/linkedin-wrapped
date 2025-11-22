@@ -9,3 +9,4 @@
 - Switch out gradients for engagement expert and popular professional cards
 - Still need to fix or remove top post wrapped card! Looks terrible
 - Remove hover movement. from instructions buttons, make buttons same side
+- Share on LinkedIn should open new tab with pre-filled text, not popup
