@@ -68,15 +68,19 @@ export const DownloadInstructions: React.FC<DownloadInstructionsProps> = ({
           </p>
 
           <div className="instructions-steps">
-            <p className="instruction-step">1. <b>Attach the file.</b> Open the downloaded image or PDF on your computer</p>
-            <p className="instruction-step">2. <b>Go to LinkedIn.</b> Click the button below to open LinkedIn with a prepared post</p>
-            <p className="instruction-step">3. <b>Share your wrapped.</b> Paste the prepared text and attach your downloaded image/PDF</p>
+            <p className="instruction-step">1. <b>Open LinkedIn.</b> Click the button below to open LinkedIn with a prepared post</p>
+            <p className="instruction-step">2. <b>Attach your file.</b> Add your LinkedIn Wrapped content to the post:
+              <ul>
+                <li>For a single-card PNG image: Click the image icon in the bottom left of the post composer to upload your image.</li>
+                <li>For a multi-card PDF carousel: Click the <b>+</b> icon at the bottom of the post composer to expand additional options. Then, click the document icon second from the right to upload your PDF file.</li>
+              </ul>
+            </p>
           </div>
 
           {/* Disclaimer */}
           <div className="instructions-disclaimer">
             <p className="disclaimer-text">
-               𝒊 <br></br> We can't automatically attach the file to your LinkedIn post without violating LinkedIn's terms of service.
+               𝒊 &nbsp; &nbsp; We can't automatically attach the file to your LinkedIn post without violating LinkedIn's terms of service.
               These manual steps ensure we stay compliant and respect LinkedIn's policies.
             </p>
           </div>
