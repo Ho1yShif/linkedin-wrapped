@@ -27,6 +27,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [exportType, setExportType] = useState<ExportOption>(null);
   const [error, setError] = useState<string | null>(null);
   const [dropdownPosition, setDropdownPosition] = useState<{ top: string; left: string }>({ top: '0px', left: '0px' });
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -75,6 +76,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
     setIsExporting(true);
     setError(null);
     setIsDropdownOpen(false);
+    setExportType('current-card');
 
     try {
       const imageBlob = await exportCardAsImage(cardRef.current);
@@ -113,6 +115,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
     setIsExporting(true);
     setError(null);
     setIsDropdownOpen(false);
+    setExportType('all-cards');
 
     try {
       // Collect all card elements - some might not be refs yet, so wait for them
@@ -256,12 +259,16 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
         </div>
       )}
 
-      {/* Download Instructions Modal */}
-      <DownloadInstructions
-        isVisible={showInstructions}
-        shareText={shareText}
-        onDismiss={() => setShowInstructions(false)}
-      />
+      {/* Download Instructions Modal - Rendered as Portal to escape stacking context */}
+      {showInstructions && createPortal(
+        <DownloadInstructions
+          isVisible={showInstructions}
+          shareText={shareText}
+          exportType={exportType ?? 'current-card'}
+          onDismiss={() => setShowInstructions(false)}
+        />,
+        document.body
+      )}
     </div>
   );
 };

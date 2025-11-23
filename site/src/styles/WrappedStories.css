@@ -26,7 +26,6 @@
   border-radius: 2px;
   overflow: hidden;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
 .progress-bar:hover {
@@ -668,7 +667,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  z-index: 10000;
   animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 1rem;
 }
@@ -685,11 +684,11 @@
 /* Download Instructions Modal */
 .download-instructions-modal {
   background: rgba(20, 20, 20, 0.98);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
   backdrop-filter: blur(12px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  max-width: 500px;
+  max-width: 650px;
   width: 100%;
   animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
@@ -721,7 +720,7 @@
 
 .instructions-title {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: rgba(255, 255, 255, 0.95);
   margin: 0;
 }
@@ -773,14 +772,14 @@
 /* Disclaimer */
 .instructions-disclaimer {
   padding: 1rem;
-  background: rgba(255, 193, 7, 0.1);
+  background: linear-gradient(135deg, rgba(10, 102, 194, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%);
   border-radius: 8px;
-  border: 1px solid rgba(255, 193, 7, 0.3);
+  border: 1px solid #0A66C2;
 }
 
 .disclaimer-text {
   font-size: 0.85rem;
-  color: rgba(255, 200, 87, 0.9);
+  color: #c9e0f5;
   margin: 0;
   line-height: 1.5;
 }
@@ -788,7 +787,7 @@
 /* Instructions Actions */
 .instructions-actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.75rem;
   padding: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -808,11 +807,15 @@
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  flex: 1;
 }
 
 .btn-share-linkedin:hover {
-  background: linear-gradient(135deg, rgba(10, 102, 194, 1), rgba(10, 102, 194, 0.8));
+  background: var(--gradient-card);
+}
+
+.btn-share-linkedin:active {
+  background: linear-gradient(135deg, rgba(10, 102, 194, 0.8), rgba(10, 102, 194, 0.6));
 }
 
 .btn-linkedin-icon {
@@ -830,17 +833,15 @@
   font-weight: 500;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  flex: 1;
 }
 
 .btn-dismiss:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.95);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, rgba(10, 102, 194, 0.8), rgba(10, 102, 194, 0.6));
 }
 
 .btn-dismiss:active {
-  background: rgba(255, 255, 255, 0.1);
+  background: transparent;
 }
 
 /* Mobile Responsive - Instructions */
@@ -873,18 +874,19 @@
   .instructions-actions {
     padding: 1.25rem;
     gap: 0.6rem;
+    flex-direction: row;
   }
 
   .btn-share-linkedin {
     padding: 1rem;
     font-size: 0.9rem;
-    height: 2.75rem;
+    flex: 1;
   }
 
   .btn-dismiss {
     padding: 1rem;
     font-size: 0.85rem;
-    height: 2.75rem;
+    flex: 1;
   }
 }
 
@@ -927,13 +929,14 @@
   .instructions-actions {
     padding: 1rem;
     gap: 0.5rem;
+    flex-direction: row;
   }
 
   .btn-share-linkedin {
     padding: 1rem;
     font-size: 0.85rem;
     gap: 0.6rem;
-    height: 2.75rem;
+    flex: 1;
   }
 
   .btn-linkedin-icon {
@@ -944,7 +947,7 @@
   .btn-dismiss {
     padding: 1rem;
     font-size: 0.8rem;
-    height: 2.75rem;
+    flex: 1;
   }
 }
 

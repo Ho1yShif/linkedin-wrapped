@@ -211,7 +211,7 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
           aria-label={isAutoPlaying ? 'Pause auto-play' : 'Start auto-play'}
           title={isAutoPlaying ? 'Pause' : 'Play'}
         >
-          {isAutoPlaying ? '⏸' : '▶'}
+          {isAutoPlaying ? '⏸' : '►'}
         </button>
 
         <button

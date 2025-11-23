@@ -2,9 +2,12 @@ import React, { useCallback } from 'react';
 import { openLinkedInShare } from '../../utils/linkedinShareLink';
 import '../../styles/WrappedStories.css';
 
+type ExportType = 'current-card' | 'all-cards';
+
 interface DownloadInstructionsProps {
   isVisible: boolean;
   shareText: string;
+  exportType?: ExportType;
   onDismiss?: () => void;
 }
 
@@ -12,10 +15,12 @@ interface DownloadInstructionsProps {
  * Component that displays instructions after downloading wrapped cards
  * Guides users to attach the downloaded file to their LinkedIn post
  * and provides a button to open LinkedIn sharing
+ * Shows different instructions based on export type (single card PNG or multi-card PDF)
  */
 export const DownloadInstructions: React.FC<DownloadInstructionsProps> = ({
   isVisible,
   shareText,
+  exportType = 'current-card',
   onDismiss,
 }) => {
   const handleShareOnLinkedIn = useCallback(() => {
@@ -64,17 +69,17 @@ export const DownloadInstructions: React.FC<DownloadInstructionsProps> = ({
         {/* Content */}
         <div className="instructions-content">
           <p className="instructions-text">
-            Your LinkedIn Wrapped was successfully downloaded! Now you can share it with your network.
+            Follow these steps to share your LinkedIn Wrapped:
           </p>
 
           <div className="instructions-steps">
             <p className="instruction-step">1. <b>Open LinkedIn.</b> Click the button below to open LinkedIn with a prepared post</p>
-            <p className="instruction-step">2. <b>Attach your file.</b> Add your LinkedIn Wrapped content to the post:
-              <ul>
-                <li>For a single-card PNG image: Click the image icon in the bottom left of the post composer to upload your image.</li>
-                <li>For a multi-card PDF carousel: Click the <b>+</b> icon at the bottom of the post composer to expand additional options. Then, click the document icon second from the right to upload your PDF file.</li>
-              </ul>
-            </p>
+            {exportType === 'current-card' ? (
+              <p className="instruction-step">2. <b>Attach your card.</b> Click the image icon in the bottom left of the post modal. Select your LinkedIn Wrapped card image (PNG file).</p>
+            ) : (
+              <p className="instruction-step">2. <b>Attach your cards.</b> Click the <b>+</b> icon at the bottom of the post modal to expand options. Click the document icon (second from the right) to upload a file and select your LinkedIn Wrapped PDF file.
+              </p>
+            )}
           </div>
 
           {/* Disclaimer */}
