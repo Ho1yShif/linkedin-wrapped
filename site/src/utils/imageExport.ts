@@ -2,29 +2,40 @@
  * Utility to export HTML card elements as PNG images
  * Creates a visible screenshot and converts to canvas
  * Removes share buttons before export
+ *
+ * Performance optimizations:
+ * - Batched DOM operations
+ * - Reduced canvas scale (1.5x instead of 2x)
+ * - Shared style cleanup logic
+ * - Disabled unnecessary html2canvas features
  */
 
+// Cached library references to avoid re-importing
+let cachedHtml2Canvas: any = null;
+
 /**
- * Load html2canvas library dynamically
+ * Load html2canvas library dynamically with caching
  */
 async function loadHtml2Canvas() {
+  if (cachedHtml2Canvas) {
+    return cachedHtml2Canvas;
+  }
+
   try {
     const module = await import('html2canvas');
-    return module.default;
+    cachedHtml2Canvas = module.default;
+    return cachedHtml2Canvas;
   } catch (err) {
     throw new Error('html2canvas library is required for PNG export');
   }
 }
 
 /**
- * Remove highlighting/background effects on text and elements
- * Strips all ::selection, gradients, and highlight effects from CSS
+ * Unified style cleanup utility - removes highlighting effects and unwanted styles
+ * Batches DOM queries for optimal performance
  */
-function removeHighlightingEffects(element: HTMLElement): void {
-  // Create a global style override that targets all elements without IDs
-  const styleId = 'export-no-selection-' + Math.random().toString(36).substr(2, 9);
-
-  // Create new style with aggressive overrides for selection and highlighting
+function cleanupExportStyles(element: HTMLElement, styleId: string): void {
+  // Inject CSS global override once
   const style = document.createElement('style');
   style.id = styleId;
   style.innerHTML = `
@@ -52,24 +63,23 @@ function removeHighlightingEffects(element: HTMLElement): void {
       color: inherit !important;
     }
   `;
-
   document.head.appendChild(style);
 
-  // Aggressive inline style overrides - directly modify element and all children
+  // Single batch query instead of multiple
   const allElements = [element, ...Array.from(element.querySelectorAll('*'))] as HTMLElement[];
 
+  // Single pass through all elements
   allElements.forEach(el => {
-    // Disable user selection completely
-    el.style.userSelect = 'none !important' as any;
-    (el.style as any).webkitUserSelect = 'none !important';
-    (el.style as any).msUserSelect = 'none !important';
-    (el.style as any).mozUserSelect = 'none !important';
+    // Disable user selection
+    el.style.userSelect = 'none';
+    (el.style as any).webkitUserSelect = 'none';
+    (el.style as any).msUserSelect = 'none';
+    (el.style as any).mozUserSelect = 'none';
 
-    // Remove any highlight-related inline styles
+    // Clear highlight-related styles
     el.style.backgroundColor = '';
     el.style.color = '';
 
-    // Force remove highlight color if set
     if (el.style.cssText.includes('highlight')) {
       el.style.cssText = el.style.cssText.replace(/highlight[^;]*;?/gi, '');
     }
@@ -78,6 +88,7 @@ function removeHighlightingEffects(element: HTMLElement): void {
 
 /**
  * Export a single card as PNG image
+ * Optimized for speed with reduced scale and batched DOM operations
  * @param element The card element to export
  * @returns A blob containing the PNG image
  */
@@ -92,88 +103,54 @@ export async function exportCardAsImage(element: HTMLElement): Promise<Blob> {
     // Clone the element to prepare it for export
     const clone = element.cloneNode(true) as HTMLElement;
 
-    // Remove share buttons and any interactive elements
+    // Single batched DOM cleanup pass - remove unwanted elements
     const shareButtons = clone.querySelectorAll('.share-button-wrapper, .share-button, [class*="share"]');
+    const iframeContainers = clone.querySelectorAll('.peak-post-embed-container');
+
+    // Remove share buttons
     shareButtons.forEach(btn => btn.remove());
 
-    // Replace iframes with trophy emoji for peak performer card exports only
-    const iframeContainers = clone.querySelectorAll('.peak-post-embed-container');
-    const originalContainers: Map<HTMLElement, HTMLElement> = new Map();
+    // Replace iframes with trophy emoji for peak performer card exports
     iframeContainers.forEach((container) => {
       const trophyDiv = document.createElement('div');
-      trophyDiv.style.display = 'flex';
-      trophyDiv.style.alignItems = 'center';
-      trophyDiv.style.justifyContent = 'center';
-      trophyDiv.style.minHeight = '200px';
-      trophyDiv.style.fontSize = '3.5rem';
+      trophyDiv.style.cssText = 'display: flex; align-items: center; justify-content: center; min-height: 200px; font-size: 3.5rem;';
       trophyDiv.textContent = '🏆';
-      originalContainers.set(trophyDiv, container as HTMLElement);
       container.replaceWith(trophyDiv);
     });
 
-    // Ensure clone is visible (in case original element was hidden)
+    // Ensure clone is visible
     clone.style.opacity = '1';
     clone.style.transform = 'scale(1)';
     clone.style.visibility = 'visible';
     clone.style.display = 'block';
+    clone.style.borderRadius = '0';
+    clone.style.overflow = 'hidden';
 
-    // Remove highlighting effects (text selection, highlights, etc.)
-    removeHighlightingEffects(clone);
+    // Unified style cleanup with batched DOM queries
+    const styleId = 'png-export-styles-' + Math.random().toString(36).substr(2, 9);
+    cleanupExportStyles(clone, styleId);
 
-    // Remove border-radius ONLY on the outer card container to prevent black background
-    // This removes the rounded corners that would show black behind the card
-    clone.style.borderRadius = '0 !important';
-    clone.style.overflow = 'hidden !important';
-
-    // Get all elements for background and highlighting fixes
+    // Single comprehensive pass through all elements for style normalization
     const allElements = clone.querySelectorAll('*');
-
-    // Fix all text-related elements - remove gradients and highlighting
-    // Target all elements with potential gradient or highlight text
-    const textElements = clone.querySelectorAll('[style*="background"], [style*="gradient"], [style*="fill-color"], .metric-value, .card-title, .engagement-value, .stat-value, [class*="value"], [class*="title"], [class*="metric"]');
-    textElements.forEach(el => {
-      const element = el as HTMLElement;
-
-      // Remove all background-related styles that might cause highlighting
-      element.style.setProperty('background', 'transparent', 'important');
-      element.style.setProperty('backgroundImage', 'none', 'important');
-      element.style.setProperty('backgroundClip', 'unset', 'important');
-
-      // Remove webkit-specific gradient text styles
-      (element.style as any).setProperty('-webkit-background-clip', 'unset', 'important');
-      (element.style as any).setProperty('-webkit-text-fill-color', 'unset', 'important');
-      (element.style as any).setProperty('-moz-background-clip', 'unset', 'important');
-
-      // Set explicit white color to override any text color
-      element.style.setProperty('color', 'rgba(255, 255, 255, 0.95)', 'important');
-
-      // Remove box-shadow and text-shadow that might create highlighting effect
-      element.style.setProperty('textShadow', 'none', 'important');
-      element.style.setProperty('boxShadow', 'none', 'important');
-    });
-
-    // Extra aggressive pass: target ALL elements and remove highlighting-related properties
-    allElements.forEach(el => {
+    allElements.forEach((el) => {
       const htmlEl = el as HTMLElement;
 
-      // Remove any background that isn't transparent or parent-related
-      if (htmlEl.style.background && !htmlEl.style.background.includes('transparent') && !htmlEl.style.background.includes('none')) {
-        htmlEl.style.background = 'transparent !important';
-      }
+      // Remove all background-related styles that might cause highlighting
+      htmlEl.style.setProperty('background', 'transparent', 'important');
+      htmlEl.style.setProperty('backgroundImage', 'none', 'important');
+      htmlEl.style.setProperty('backgroundClip', 'unset', 'important');
 
-      // Remove highlight-like colors (common highlight colors in HSL/RGB)
-      const computedStyle = window.getComputedStyle(htmlEl);
-      const bgColor = computedStyle.backgroundColor;
+      // Remove webkit-specific gradient text styles
+      (htmlEl.style as any).setProperty('-webkit-background-clip', 'unset', 'important');
+      (htmlEl.style as any).setProperty('-webkit-text-fill-color', 'unset', 'important');
+      (htmlEl.style as any).setProperty('-moz-background-clip', 'unset', 'important');
 
-      // If background is a highlight-like color, remove it
-      if (bgColor && bgColor !== 'rgba(0, 0, 0, 0)' && bgColor !== 'transparent') {
-        const isLightColor = bgColor.includes('rgb(0, 102, 204)') ||
-                           bgColor.includes('rgb(10, 102, 194)') ||
-                           bgColor.includes('rgb(0, 120, 215)');
-        if (isLightColor) {
-          htmlEl.style.backgroundColor = 'transparent !important';
-        }
-      }
+      // Set explicit white color
+      htmlEl.style.setProperty('color', 'rgba(255, 255, 255, 0.95)', 'important');
+
+      // Remove shadows that might create highlighting effect
+      htmlEl.style.setProperty('textShadow', 'none', 'important');
+      htmlEl.style.setProperty('boxShadow', 'none', 'important');
     });
 
     // Get dimensions
@@ -205,9 +182,11 @@ export async function exportCardAsImage(element: HTMLElement): Promise<Blob> {
     document.body.appendChild(container);
 
     try {
-      // Capture using html2canvas with visibility
+      // Capture using html2canvas with optimized settings
+      // scale: 1.5 provides good quality while improving speed significantly
+      // Disabled unnecessary features (proxy, foreignObjectRendering)
       const canvas = await html2canvas(clone, {
-        scale: 2,
+        scale: 1.5,
         useCORS: true,
         allowTaint: true,
         backgroundColor: '#0F0F0F',
@@ -216,6 +195,8 @@ export async function exportCardAsImage(element: HTMLElement): Promise<Blob> {
         height: height,
         windowHeight: height,
         windowWidth: width,
+        proxy: null,
+        foreignObjectRendering: false,
       });
 
       // Convert canvas to blob
