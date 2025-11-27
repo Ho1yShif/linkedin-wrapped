@@ -306,7 +306,7 @@
   .peak-post-embed-container {
     border-radius: 10px;
     height: clamp(100px, 15vh, 180px);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
 
   .peak-post-fallback {
@@ -328,6 +328,7 @@
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     flex-wrap: nowrap !important;
+    padding-top: 2rem;
   }
 
   .peak-metric {
@@ -532,9 +533,27 @@
     flex: 0 1 auto;
   }
 
-  .peak-post-embed-container {
-    height: clamp(90px, 14vh, 140px);
+  .peak-post-embed-wrapper {
+    max-height: 350px !important;
+  }
+
+  .peak-performer-content .peak-post-embed-wrapper .peak-post-embed-container {
+    height: 250px !important;
+    min-height: 250px !important;
+    max-height: 325px !important;
     border-radius: 8px;
+  }
+
+  .peak-post-embed-container {
+    height: 250px !important;
+    min-height: 250px !important;
+    max-height: 325px !important;
+    border-radius: 8px;
+  }
+
+  .peak-post-iframe {
+    height: 250px !important;
+    min-height: 250px !important;
   }
 
   .peak-post-fallback {
@@ -580,6 +599,7 @@
 
   .peak-post-context {
     font-size: 0.7rem;
+    padding-top: 1rem;
   }
 }
 
@@ -597,7 +617,7 @@
   }
 
   .story-card {
-    padding: 1.75rem;
+    padding: 2.5rem;
   }
 
   /* Desktop: 1024px and above */
@@ -640,11 +660,14 @@
   }
 
   .peak-post-embed-container {
-    height: clamp(180px, 24vh, 260px);
+    height: clamp(230px, 24vh, 260px) !important;
+    margin-bottom: 1rem;
   }
 
   .peak-post-metrics {
     gap: 0.85rem;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
   }
 
   .peak-metric {
