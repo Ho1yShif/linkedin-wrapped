@@ -108,8 +108,8 @@
   }
 
   .card-circular-logo {
-    width: clamp(80px, 20vw, 150px);
-    height: clamp(80px, 20vw, 150px);
+    width: clamp(57px, 14vw, 108px);
+    height: clamp(57px, 14vw, 108px);
     margin-top: 0;
   }
 
@@ -352,8 +352,8 @@
   }
 
   .card-circular-logo {
-    width: clamp(130px, 22vw, 260px);
-    height: clamp(130px, 22vw, 260px);
+    width: clamp(94px, 15vw, 187px);
+    height: clamp(94px, 15vw, 187px);
     margin-top: 2%;
     margin-bottom: 1%;
   }
@@ -421,8 +421,8 @@
   }
 
   .card-circular-logo {
-    width: clamp(80px, 30vw, 120px);
-    height: clamp(80px, 30vw, 120px);
+    width: clamp(57px, 22vw, 86px);
+    height: clamp(57px, 22vw, 86px);
     margin-top: 2%;
   }
 

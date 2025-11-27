@@ -135,8 +135,8 @@
 
 /* Circular Logo */
 .card-circular-logo {
-  width: clamp(100px, 25vw, 250px);
-  height: clamp(100px, 25vw, 250px);
+  width: clamp(72px, 18vw, 176px);
+  height: clamp(72px, 18vw, 176px);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
@@ -146,8 +146,8 @@
 }
 
 .story-card.top-post .card-circular-logo {
-  width: clamp(80px, 18vw, 150px);
-  height: clamp(80px, 18vw, 150px);
+  width: clamp(57px, 13vw, 110px);
+  height: clamp(57px, 13vw, 110px);
   margin-top: 0;
 }
 
