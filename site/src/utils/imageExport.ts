@@ -129,10 +129,10 @@ export async function exportCardAsImage(element: HTMLElement): Promise<string> {
     document.body.appendChild(container);
 
     try {
-      // Convert to PNG using html-to-image
+      // Convert to PNG using html-to-image with high resolution
       const dataUrl = await toPng(preparedClone, {
         cacheBust: true,
-        pixelRatio: 1,
+        pixelRatio: 2,
         backgroundColor: '#0F0F0F',
       });
 

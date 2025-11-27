@@ -51,11 +51,12 @@ export async function exportCardsAsPDFFromImages(
   const jsPDF = await loadJsPDF();
 
   try {
-    // Initialize PDF
+    // Initialize PDF with high quality settings
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
       format: 'a4',
+      compress: true,
     });
 
     const pageWidth = pdf.internal.pageSize.getWidth();
