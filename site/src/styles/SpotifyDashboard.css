@@ -277,6 +277,14 @@
   }
 }
 
+@media (max-width: 768px) {
+  .warpped-metrics-grid.line-2 .card-label,
+  .warpped-metrics-grid.line-3 .card-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.7px;
+  }
+}
+
 @media (max-width: 480px) {
   .spotify-dashboard {
     padding: 1rem 0.75rem;
@@ -312,6 +320,12 @@
   .card-label {
     font-size: 0.65rem;
     letter-spacing: 0.8px;
+  }
+
+  .warpped-metrics-grid.line-2 .card-label,
+  .warpped-metrics-grid.line-3 .card-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.6px;
   }
 
   .card-unit {

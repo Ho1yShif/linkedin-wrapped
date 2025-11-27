@@ -25,6 +25,7 @@
     font-size: clamp(1.2rem, 3.5vw, 1.5rem);
   }
 
+  /* Tablet: 600px-768px */
   .card-circular-logo {
     margin-top: 0.25rem;
   }
@@ -74,6 +75,7 @@
     font-size: clamp(1.3rem, 3.5vw, 1.6rem);
   }
 
+  /* Tablet: 768px-1024px */
   .card-circular-logo {
     margin-top: 0.5rem;
   }
@@ -98,27 +100,93 @@
 
 /* Landscape Orientation */
 @media (orientation: landscape) and (max-width: 900px) {
+  .wrapped-stories-container {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+  }
+
+  .story-progress-container {
+    margin-bottom: 0.5rem;
+  }
+
   .story-viewport {
     aspect-ratio: 16 / 9;
-    max-height: 85vh;
+    max-height: 80vh;
+    margin-bottom: 0.75rem;
   }
 
   .story-card {
-    padding: 1.25rem;
+    padding: 1rem;
   }
 
+  /* Landscape: max 900px */
   .card-circular-logo {
-    width: clamp(57px, 14vw, 108px);
-    height: clamp(57px, 14vw, 108px);
+    width: clamp(50px, 12vw, 90px);
+    height: clamp(50px, 12vw, 90px);
     margin-top: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  .card-content-wrapper {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 
   .card-body {
-    gap: 1rem;
+    gap: 0.75rem;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .card-value {
+    font-size: 2rem;
+  }
+
+  .card-label {
+    font-size: 0.85rem;
   }
 
   .card-icon {
     margin-bottom: 0;
+    font-size: 2.5rem;
+  }
+
+  .card-footer {
+    gap: 0.75rem;
+  }
+
+  .control-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .story-controls {
+    margin-bottom: 0.5rem;
+    gap: 0.4rem;
+  }
+
+  .story-info {
+    font-size: 0.7rem;
+  }
+
+  /* Landscape peak performer */
+  .peak-performer-content {
+    gap: 0.5rem;
+  }
+
+  .peak-post-embed-container {
+    height: clamp(100px, 16vh, 160px);
+  }
+
+  .peak-post-metrics {
+    gap: 0.4rem;
+  }
+
+  .peak-metric {
+    padding: 0.6rem 0.8rem;
+    min-width: 100px;
   }
 }
 
@@ -126,108 +194,232 @@
 @media (max-width: 768px) {
   .wrapped-stories-container {
     padding: 0.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 100%;
+  }
+
+  .story-progress-container {
+    margin-bottom: 0.75rem;
+    padding: 0.25rem 0;
+    flex-shrink: 0;
+  }
+
+  .progress-bars {
+    gap: 0.35rem;
+  }
+
+  .progress-bar {
+    height: 2.5px;
   }
 
   .story-viewport {
-    aspect-ratio: 9 / 14;
+    width: 100%;
+    aspect-ratio: 4 / 3;
     margin-bottom: 1rem;
+    flex: 1 1 auto;
+    max-height: 60vh;
+    min-height: auto;
   }
 
   .story-card {
     border-radius: 16px;
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 
   .card-content-wrapper {
-    padding-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .card-header {
+    margin-bottom: 0.25rem;
+  }
+
+  /* Mobile: 768px and below */
+  .card-circular-logo {
+    width: clamp(160px, 44vw, 280px) !important;
+    height: clamp(160px, 44vw, 280px) !important;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
   }
 
   .card-body {
     margin-bottom: 0.25rem;
+    gap: 0.5rem;
   }
 
   .card-footer {
-    margin-bottom: 0.01rem;
+    margin-bottom: 0.5rem;
+    margin-top: auto;
   }
 
   .card-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
   }
 
   .card-icon {
-    font-size: 3rem;
+    font-size: 2.8rem;
+    margin-bottom: 3%;
   }
 
   .card-value {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
   }
 
   .card-label {
-    font-size: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .card-context {
+    font-size: 0.9rem;
   }
 
   .story-controls {
     gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-shrink: 0;
   }
 
   .control-button {
     padding: 0.6rem 1.2rem;
     font-size: 0.85rem;
+    min-height: 40px;
+  }
+
+  .story-info {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+    flex-shrink: 0;
   }
 
   /* Peak Performer Responsive */
   .peak-performer-content {
-    gap: 1rem;
+    gap: 0.6rem;
+    flex: 0 1 auto;
   }
 
   .peak-post-embed-container {
     border-radius: 10px;
+    height: clamp(100px, 15vh, 180px);
+    margin-bottom: 1rem;
+  }
+
+  .peak-post-fallback {
+    min-height: 140px;
+    padding: 1rem 0.75rem;
+  }
+
+  .fallback-emoji {
+    font-size: 1.8rem;
+  }
+
+  .fallback-message {
+    font-size: 0.85rem;
   }
 
   .peak-post-metrics {
-    gap: 0.75rem;
+    gap: 1rem;
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    flex-wrap: nowrap !important;
   }
 
   .peak-metric {
-    padding: 0.75rem 1rem;
-    min-width: 130px;
+    padding: 0.65rem 0.85rem;
+    gap: 0.5rem;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    min-width: 0 !important;
+  }
+
+  .peak-metric-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .peak-metric-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+    min-width: 0;
   }
 
   .peak-metric-value {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .peak-metric-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
   }
 
   .peak-post-context {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   /* Summary Metrics - Mobile */
+  .summary-metrics {
+    gap: 0.6rem;
+    max-width: 100%;
+  }
+
+  .metric-row {
+    gap: 0.5rem;
+  }
+
   .metric {
     padding: 0.6rem;
+    flex-basis: calc(50% - 0.25rem);
+    min-width: 80px;
   }
 
   .metric-value {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
   }
 
   .metric-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 }
 
 @media (max-width: 480px) {
   .wrapped-stories-container {
-    padding: 0;
-    margin-bottom: 2rem;
+    padding: 0.4rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 100%;
+  }
+
+  .story-progress-container {
+    margin-bottom: 0.5rem;
+    padding: 0.15rem 0;
+    flex-shrink: 0;
+  }
+
+  .progress-bars {
+    gap: 0.3rem;
+  }
+
+  .progress-bar {
+    height: 2px;
   }
 
   .story-viewport {
-    aspect-ratio: 9 / 16;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    margin-bottom: 0.75rem;
+    flex: 1 1 auto;
+    max-height: 55vh;
+    min-height: auto;
   }
 
   .story-card {
@@ -236,101 +428,158 @@
   }
 
   .card-content-wrapper {
-    padding-bottom: 0.5rem;
-  }
-
-  .card-body {
-    margin-bottom: 0.25rem;
-  }
-
-  .card-footer {
-    margin-bottom: 0.3rem;
+    padding-bottom: 0.35rem;
+    padding-top: 0.4rem;
+    gap: 0.4rem;
   }
 
   .card-header {
     flex-direction: column;
     align-items: center;
+    margin-bottom: 0.2rem;
+    width: 100%;
   }
 
   .card-title {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     text-align: center;
+    line-height: 1.15;
+    margin-bottom: 0.15rem;
+  }
+
+  /* Small Mobile: 480px and below */
+  .card-circular-logo {
+    width: clamp(50px, 15vw, 80px);
+    height: clamp(50px, 15vw, 80px);
+    margin-top: 0;
+    margin-bottom: 0.2rem;
+  }
+
+  .card-body {
+    margin-bottom: 0.15rem;
+    gap: 0.4rem;
+  }
+
+  .card-footer {
+    margin-bottom: 0.3rem;
+    margin-top: auto;
   }
 
   .card-icon {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
+    margin-bottom: 2%;
   }
 
   .card-value {
-    font-size: 1.9rem;
+    font-size: 1.8rem;
+    line-height: 1.1;
   }
 
   .card-label {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .card-context {
+    font-size: 0.8rem;
   }
 
   /* Summary Metrics - Small Mobile */
+  .summary-metrics {
+    gap: 0.5rem;
+    max-width: 100%;
+  }
+
+  .metric-row {
+    gap: 0.4rem;
+  }
+
   .metric {
-    padding: 0.5rem;
+    padding: 0.5rem 0.4rem;
+    flex-basis: calc(50% - 0.2rem);
+    min-width: 70px;
   }
 
   .metric-value {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
+    line-height: 1.1;
   }
 
   .metric-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+  }
+
+  .story-controls {
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+    flex-shrink: 0;
   }
 
   .control-button {
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
+    padding: 0.5rem 0.95rem;
+    font-size: 0.75rem;
+    min-height: 38px;
+  }
+
+  .story-info {
+    font-size: 0.7rem;
+    margin-bottom: 0.25rem;
+    flex-shrink: 0;
   }
 
   /* Peak Performer Responsive - Small Screen */
   .peak-performer-content {
-    gap: 0.625rem;
+    gap: 0.5rem;
+    flex: 0 1 auto;
   }
 
   .peak-post-embed-container {
-    height: clamp(100px, 12vh, 150px);
+    height: clamp(90px, 14vh, 140px);
     border-radius: 8px;
   }
 
   .peak-post-fallback {
-    min-height: 160px;
-    padding: 1.5rem 1rem;
+    min-height: 130px;
+    padding: 1rem 0.75rem;
   }
 
   .fallback-emoji {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 
   .fallback-message {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .peak-post-metrics {
-    gap: 0.4rem;
+    gap: 0.3rem;
     width: 100%;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    flex-wrap: nowrap !important;
   }
 
   .peak-metric {
-    padding: 0.6rem 0.85rem;
-    min-width: 110px;
-    flex: 0 1 calc(50% - 0.2rem);
+    padding: 0.55rem 0.7rem;
+    gap: 0.4rem;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+
+  .peak-metric-icon {
+    font-size: 1.2rem;
   }
 
   .peak-metric-value {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .peak-metric-label {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
   }
 
   .peak-post-context {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 }
 
@@ -351,6 +600,7 @@
     padding: 1.75rem;
   }
 
+  /* Desktop: 1024px and above */
   .card-circular-logo {
     width: clamp(94px, 15vw, 187px);
     height: clamp(94px, 15vw, 187px);
@@ -406,13 +656,33 @@
 /* Ultra-Small Screens (< 320px) */
 @media (max-width: 320px) {
   .wrapped-stories-container {
-    padding: 0.25rem;
-    margin-bottom: 1.5rem;
+    padding: 0.3rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .story-progress-container {
+    margin-bottom: 0.35rem;
+    padding: 0.1rem 0;
+    flex-shrink: 0;
+  }
+
+  .progress-bars {
+    gap: 0.2rem;
+  }
+
+  .progress-bar {
+    height: 1.8px;
   }
 
   .story-viewport {
     aspect-ratio: 9 / 16;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    flex: 1 1 auto;
+    max-height: calc(100vh - 160px);
+    min-height: auto;
   }
 
   .story-card {
@@ -420,47 +690,145 @@
     padding: 0.75rem;
   }
 
+  .card-content-wrapper {
+    padding-bottom: 0.3rem;
+    padding-top: 0.35rem;
+    gap: 0.3rem;
+  }
+
+  .card-header {
+    margin-bottom: 0.15rem;
+  }
+
+  /* Ultra-Small Mobile: 320px and below */
   .card-circular-logo {
-    width: clamp(57px, 22vw, 86px);
-    height: clamp(57px, 22vw, 86px);
-    margin-top: 2%;
+    width: clamp(45px, 20vw, 70px);
+    height: clamp(45px, 20vw, 70px);
+    margin-top: 0;
+    margin-bottom: 0.15rem;
   }
 
   .card-title {
-    font-size: clamp(0.95rem, 3vw, 1.1rem);
+    font-size: 1rem;
     text-align: center;
+    line-height: 1.1;
+    margin-bottom: 0.1rem;
   }
 
   .card-icon {
-    font-size: clamp(1.8rem, 8vw, 2.2rem);
-    margin-bottom: 3%;
+    font-size: 2rem;
+    margin-bottom: 2%;
   }
 
   .card-value {
-    font-size: clamp(1.3rem, 5vw, 1.6rem);
+    font-size: 1.6rem;
+    line-height: 1.1;
   }
 
   .card-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+  }
+
+  .card-context {
+    font-size: 0.75rem;
+  }
+
+  .card-footer {
+    margin-bottom: 0.25rem;
+    margin-top: auto;
   }
 
   .control-button {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.75rem;
-    min-height: 40px;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.7rem;
+    min-height: 36px;
+  }
+
+  .story-controls {
+    gap: 0.3rem;
+    margin-bottom: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .story-info {
+    font-size: 0.65rem;
+    margin-bottom: 0.2rem;
+    flex-shrink: 0;
   }
 
   .metric {
-    padding: 0.75rem;
-    min-width: 80px;
-    flex-basis: calc(50% - 0.25rem);
+    padding: 0.4rem;
+    min-width: 60px;
+    flex-basis: calc(50% - 0.15rem);
   }
 
   .metric-value {
-    font-size: 1.2rem;
+    font-size: 1rem;
+    line-height: 1.05;
   }
 
   .metric-label {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
+  }
+
+  .summary-metrics {
+    gap: 0.4rem;
+  }
+
+  .metric-row {
+    gap: 0.3rem;
+  }
+
+  /* Peak Performer - Ultra Small */
+  .peak-performer-content {
+    gap: 0.4rem;
+    flex: 0 1 auto;
+  }
+
+  .peak-post-embed-container {
+    height: clamp(80px, 13vh, 120px);
+    border-radius: 6px;
+  }
+
+  .peak-post-fallback {
+    min-height: 110px;
+    padding: 0.75rem;
+  }
+
+  .fallback-emoji {
+    font-size: 1.4rem;
+  }
+
+  .fallback-message {
+    font-size: 0.75rem;
+  }
+
+  .peak-post-metrics {
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .peak-metric {
+    padding: 0.45rem 0.6rem;
+    min-width: 80px;
+    flex: 0 1 calc(50% - 0.125rem);
+    gap: 0.3rem;
+    font-size: 0.85rem;
+  }
+
+  .peak-metric-icon {
+    font-size: 1rem;
+  }
+
+  .peak-metric-value {
+    font-size: 0.9rem;
+  }
+
+  .peak-metric-label {
+    font-size: 0.5rem;
+  }
+
+  .peak-post-context {
+    font-size: 0.65rem;
   }
 }

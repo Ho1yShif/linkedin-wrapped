@@ -15,6 +15,8 @@
 .story-progress-container {
   margin-bottom: 1.5rem;
   width: 100%;
+  position: relative;
+  z-index: 100;
 }
 
 .progress-bars {
@@ -73,6 +75,12 @@
   margin-right: auto;
 }
 
+@media (max-width: 768px) {
+  .story-viewport {
+    width: 100% !important;
+  }
+}
+
 /* Story Card */
 .story-card {
   position: absolute;
@@ -81,7 +89,7 @@
   padding: clamp(0.75rem, 3vw, 1.5rem);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
   overflow: visible;
@@ -126,11 +134,17 @@
   padding-top: 0.75rem;
   padding-bottom: 0.05rem;
   overflow: visible;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .story-card:not(.top-post) .card-content-wrapper {
   justify-content: center;
   gap: 0.75rem;
+}
+
+.story-card.top-post .card-content-wrapper {
+  justify-content: flex-start;
 }
 
 /* Circular Logo */
@@ -248,12 +262,14 @@
 }
 
 /* Summary Metrics Grid */
-  .summary-metrics {
+.summary-metrics {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
     width: 100%;
-    max-width: 90%;
+    max-width: 95%;
+    flex: 0 1 auto;
+    justify-content: flex-start;
   }.metric-row {
   display: flex;
   gap: 0.75rem;
@@ -343,10 +359,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   gap: 0.5rem;
   width: 100%;
   max-width: 90%;
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   min-height: 0;
   overflow: visible;
   padding: 0;
@@ -486,13 +503,16 @@
 }
 
 .branding {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.75);
-  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.3px;
   text-transform: uppercase;
   text-align: left;
-  padding: 0.25rem 0;
+  padding: 0.15rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Story Controls */
