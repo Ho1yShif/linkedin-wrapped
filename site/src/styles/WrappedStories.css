@@ -38,10 +38,29 @@
   background-color: rgba(255, 255, 255, 0.4);
 }
 
-.progress-bar.active .progress-fill,
 .progress-bar.completed {
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+.progress-bar.completed .progress-fill {
+  width: 100%;
+  animation: none;
+}
+
+.progress-bar.active .progress-fill {
+  background-color: rgba(255, 255, 255, 0.8);
   animation: progressFill 0.3s ease forwards;
+}
+
+/* When autoplay is active, animate the progress fill during the autoplay duration */
+.progress-bar.active[style*="--is-autoplay: 1"] .progress-fill {
+  animation: progressFill var(--auto-play-duration, 5000ms) linear forwards !important;
+}
+
+/* When navigating backward, skip animation and show full bar immediately */
+.progress-bar.active[style*="--is-backward: 1"] .progress-fill {
+  width: 100%;
+  animation: none !important;
 }
 
 .progress-fill {

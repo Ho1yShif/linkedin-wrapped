@@ -16,7 +16,9 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [userManuallyPaused, setUserManuallyPaused] = useState(false);
+  const [isNavigatingBackward, setIsNavigatingBackward] = useState(false);
   const autoPlayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const previousCardIndexRef = useRef(0);
 
   // Create refs for all cards for PDF export
   const cardRefsRef = useRef<React.RefObject<HTMLDivElement>[]>([]);
@@ -73,6 +75,8 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
     setCurrentCardIndex(prev => {
       const nextIndex = prev + 1;
       if (nextIndex >= totalCards) return 0;  // Cycle to beginning
+      previousCardIndexRef.current = prev;
+      setIsNavigatingBackward(false);
       return nextIndex;
     });
     clearAutoPlayTimer();
@@ -86,6 +90,8 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
     setCurrentCardIndex(prev => {
       const prevIndex = prev - 1;
       if (prevIndex < 0) return totalCards - 1;  // Cycle to end
+      previousCardIndexRef.current = prev;
+      setIsNavigatingBackward(true);
       return prevIndex;
     });
     clearAutoPlayTimer();
@@ -97,7 +103,11 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
 
   const handleJumpToCard = useCallback((index: number) => {
     if (index >= 0 && index < totalCards) {
-      setCurrentCardIndex(index);
+      setCurrentCardIndex(prevIndex => {
+        setIsNavigatingBackward(index < prevIndex);
+        previousCardIndexRef.current = prevIndex;
+        return index;
+      });
       clearAutoPlayTimer();
       // Continue autoplay unless manually paused
       if (!userManuallyPaused) {
@@ -187,6 +197,9 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
         currentCardIndex={currentCardIndex}
         totalCards={totalCards}
         onJumpToCard={handleJumpToCard}
+        isAutoPlaying={isAutoPlaying}
+        autoPlayDuration={autoPlayDuration}
+        isNavigatingBackward={isNavigatingBackward}
       />
 
       <div
