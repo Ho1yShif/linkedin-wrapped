@@ -70,7 +70,8 @@ export async function exportCardsAsPDFFromImages(
 
       try {
         // Use shared image export functionality to capture the card as data URL
-        const imageDataUrl = await exportCardAsImage(cardElement);
+        // Use white background for PDF so rounded corners blend seamlessly
+        const imageDataUrl = await exportCardAsImage(cardElement, '#FFFFFF');
 
         // Create a temporary image to get dimensions
         const img = new Image();

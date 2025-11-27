@@ -90,9 +90,10 @@ function prepareElementForExport(clone: HTMLElement): HTMLElement {
 /**
  * Export a single card as PNG image using html-to-image
  * @param element The card element to export
+ * @param backgroundColor Optional background color for the PNG (defaults to dark)
  * @returns A promise that resolves to a data URL string
  */
-export async function exportCardAsImage(element: HTMLElement): Promise<string> {
+export async function exportCardAsImage(element: HTMLElement, backgroundColor: string = '#0F0F0F'): Promise<string> {
   try {
     // Clone the element to avoid modifying the original
     const clone = element.cloneNode(true) as HTMLElement;
@@ -133,7 +134,7 @@ export async function exportCardAsImage(element: HTMLElement): Promise<string> {
       const dataUrl = await toPng(preparedClone, {
         cacheBust: true,
         pixelRatio: 2,
-        backgroundColor: '#0F0F0F',
+        backgroundColor,
       });
 
       return dataUrl;
