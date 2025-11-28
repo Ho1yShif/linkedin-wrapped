@@ -8,24 +8,24 @@
 }
 
 /* Metrics Grid - 3 different layouts for 3 lines */
-.warpped-metrics-grid {
+.wrapped-metrics-grid {
   display: grid;
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
 /* Line 1: 2 cards at 50% each */
-.warpped-metrics-grid.line-1 {
+.wrapped-metrics-grid.line-1 {
   grid-template-columns: repeat(2, 1fr);
 }
 
 /* Line 2: 3 cards */
-.warpped-metrics-grid.line-2 {
+.wrapped-metrics-grid.line-2 {
   grid-template-columns: repeat(3, 1fr);
 }
 
 /* Line 3: 3 cards */
-.warpped-metrics-grid.line-3 {
+.wrapped-metrics-grid.line-3 {
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -102,6 +102,24 @@
   color: var(--text-tertiary);
   margin-bottom: 1rem;
   transition: color 0.2s ease;
+}
+
+.wrapped-metrics-grid.line-1 .card-label {
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0px !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+.wrapped-metrics-grid.line-2 .card-label {
+  font-size: 0.73rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0px !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
 }
 
 .metric-card:hover .card-label {
@@ -258,7 +276,7 @@
     margin-bottom: 1.5rem;
   }
 
-  .warpped-metrics-grid {
+  .wrapped-metrics-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
     margin-bottom: 1.5rem;
@@ -278,8 +296,8 @@
 }
 
 @media (max-width: 768px) {
-  .warpped-metrics-grid.line-2 .card-label,
-  .warpped-metrics-grid.line-3 .card-label {
+  .wrapped-metrics-grid.line-2 .card-label,
+  .wrapped-metrics-grid.line-3 .card-label {
     font-size: 0.65rem;
     letter-spacing: 0.7px;
   }
@@ -307,7 +325,7 @@
     margin-bottom: 1rem;
   }
 
-  .warpped-metrics-grid {
+  .wrapped-metrics-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
     margin-bottom: 1rem;
@@ -322,8 +340,8 @@
     letter-spacing: 0.8px;
   }
 
-  .warpped-metrics-grid.line-2 .card-label,
-  .warpped-metrics-grid.line-3 .card-label {
+  .wrapped-metrics-grid.line-2 .card-label,
+  .wrapped-metrics-grid.line-3 .card-label {
     font-size: 0.55rem;
     letter-spacing: 0.6px;
   }
@@ -338,5 +356,24 @@
 
   .card-content {
     padding: 1rem;
+  }
+}
+
+
+/* Desktop Optimization - Larger labels */
+@media (min-width: 1025px) {
+  .wrapped-metrics-grid.line-1 .card-label {
+    font-size: 1.8rem !important;
+  }
+
+  .wrapped-metrics-grid.line-2 .card-label {
+    font-size: 1.3rem !important;
+  }
+}
+
+/* HReduce Spotify second-row metrics on very small screens */
+@media (max-width: 389px) {
+  .wrapped-metrics-grid.line-2 .card-label {
+    font-size: 0.6rem !important;
   }
 }

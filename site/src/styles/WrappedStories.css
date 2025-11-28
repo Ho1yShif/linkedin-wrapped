@@ -260,7 +260,7 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.card-label {
+.story-card .card-label {
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.4;

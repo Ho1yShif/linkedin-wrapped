@@ -52,7 +52,7 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
         </p>
         <br></br>
         {/* Line 1: Impressions and Members reached (2 cards at 50% each) */}
-        <div className="warpped-metrics-grid line-1">
+        <div className="wrapped-metrics-grid line-1">
           {/* Total impressions Card */}
           <div className="metric-card">
             <div className="card-background gradient-1"></div>
@@ -83,7 +83,7 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
         </div>
 
         {/* Line 2: Total engagements, Total impressions (duplicate), and Average Impressions Per Day */}
-        <div className="warpped-metrics-grid line-2">
+        <div className="wrapped-metrics-grid line-2">
           {/* Total engagements Card */}
           <div className="metric-card">
             <div className="card-background gradient-3"></div>
