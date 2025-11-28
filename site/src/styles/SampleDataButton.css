@@ -1,0 +1,50 @@
+.sample-data-button {
+  width: 100%;
+  max-width: 600px;
+  padding: 1rem 2rem;
+  border: 2px solid var(--border-color-light);
+  border-radius: 16px;
+  background: var(--gradient-card);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+}
+
+.sample-data-button:hover:not(:disabled) {
+  background: var(--gradient-primary);
+}
+
+.sample-data-button:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.sample-data-button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .sample-data-button {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}

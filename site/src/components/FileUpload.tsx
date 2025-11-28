@@ -1,8 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import type { ParsedExcelData } from '../utils/excel/types';
 import { useCache } from '../hooks/useCache';
+import { useSampleData } from '../hooks/useSampleData';
 import { CacheIndicator } from './CacheIndicator';
+import { SampleDataButton } from './SampleDataButton';
 import '../styles/FileUpload.css';
 
 interface FileUploadProps {
@@ -11,16 +13,18 @@ interface FileUploadProps {
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({ onFileProcessed, isLoading = false }) => {
-  const [isProcessing, setIsProcessing] = useState(false);
   const cache = useCache((data, uploadDate) => {
-    // Auto-load cached data on mount
     onFileProcessed(data, undefined, uploadDate, true);
   });
+
+  const sampleData = useSampleData(
+    (data) => onFileProcessed(data, undefined, Date.now(), false),
+    (error) => onFileProcessed({}, error.message)
+  );
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) return;
 
-    setIsProcessing(true);
     try {
       const { processExcelFile } = await import('../utils/excel/excelProcessor');
       const data = await processExcelFile(acceptedFiles[0]);
@@ -30,8 +34,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileProcessed, isLoadi
       const errorMessage = error instanceof Error ? error.message : 'Failed to process file';
       console.error('Error processing file:', error);
       onFileProcessed({}, errorMessage);
-    } finally {
-      setIsProcessing(false);
     }
   }, [cache, onFileProcessed]);
 
@@ -39,10 +41,16 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileProcessed, isLoadi
     onDrop,
     accept: {
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
-      'text/csv': ['.csv'],
     },
-    disabled: isProcessing || isLoading,
+    disabled: isLoading || sampleData.isLoading,
   });
+
+  useEffect(() => {
+    const preloadLink = document.createElement('link');
+    preloadLink.rel = 'prefetch';
+    preloadLink.href = '/demo-data/linkedin-demo.xlsx';
+    document.head.appendChild(preloadLink);
+  }, []);
 
   return (
     <div className="file-upload-container">
@@ -52,7 +60,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileProcessed, isLoadi
           onClear={cache.clear}
         />
       )}
-      <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''} ${isProcessing || isLoading ? 'disabled' : ''}`}>
+      <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''} ${isLoading || sampleData.isLoading ? 'disabled' : ''}`}>
         <input {...getInputProps()} />
         <div className="dropzone-content">
           <div className="upload-icon">📤</div>
@@ -67,6 +75,15 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileProcessed, isLoadi
           )}
         </div>
       </div>
+
+      <div className="demo-section">
+        <div className="divider"><span>or</span></div>
+        <SampleDataButton
+          onClick={sampleData.loadSampleData}
+          isLoading={sampleData.isLoading}
+        />
+      </div>
+
       <div className="instructions">
         <h3>Export your LinkedIn data</h3>
         <ol>
