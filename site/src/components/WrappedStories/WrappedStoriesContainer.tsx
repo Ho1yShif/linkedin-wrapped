@@ -162,6 +162,8 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
 
   // Touch/swipe handling
   const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+  const touchStartTimeRef = useRef<number | null>(null);
 
   // Clear swipe arrow animation
   const clearSwipeArrowTimer = useCallback(() => {
@@ -173,17 +175,27 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
+    touchStartTimeRef.current = Date.now();
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartXRef.current === null) return;
+    if (touchStartXRef.current === null || touchStartYRef.current === null || touchStartTimeRef.current === null) return;
 
     const touchEndX = e.changedTouches[0].clientX;
-    const difference = touchStartXRef.current - touchEndX;
-    const threshold = 50; // pixels
+    const touchEndY = e.changedTouches[0].clientY;
+    const touchDuration = Date.now() - touchStartTimeRef.current;
 
-    if (Math.abs(difference) > threshold) {
-      if (difference > 0) {
+    const horizontalDifference = touchStartXRef.current - touchEndX;
+    const verticalDifference = Math.abs(touchStartYRef.current - touchEndY);
+
+    const swipeThreshold = 50; // pixels for swipe
+    const tapThreshold = 10; // pixels for tap
+    const tapDurationThreshold = 300; // milliseconds
+
+    // Detect swipe (significant horizontal movement)
+    if (Math.abs(horizontalDifference) > swipeThreshold && verticalDifference < swipeThreshold) {
+      if (horizontalDifference > 0) {
         setSwipeArrowDirection('left');
         handleNext();
       } else {
@@ -199,8 +211,29 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
         setSwipeArrowDirection(null);
       }, 600);
     }
+    // Detect tap (minimal movement and quick duration)
+    else if (
+      Math.abs(horizontalDifference) < tapThreshold &&
+      verticalDifference < tapThreshold &&
+      touchDuration < tapDurationThreshold
+    ) {
+      // Get viewport element for width calculation
+      const viewportElement = e.currentTarget as HTMLElement;
+      const viewportWidth = viewportElement.offsetWidth;
+      const tapXPosition = touchStartXRef.current;
+      const midpoint = viewportWidth / 2;
+
+      // Tap on right side = next, tap on left side = previous
+      if (tapXPosition > midpoint) {
+        handleNext();
+      } else {
+        handlePrevious();
+      }
+    }
 
     touchStartXRef.current = null;
+    touchStartYRef.current = null;
+    touchStartTimeRef.current = null;
   };
 
   // Press-and-hold to pause (Instagram stories style)
