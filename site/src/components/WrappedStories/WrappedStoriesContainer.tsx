@@ -17,8 +17,10 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
   const [userManuallyPaused, setUserManuallyPaused] = useState(false);
   const [isNavigatingBackward, setIsNavigatingBackward] = useState(false);
   const [swipeArrowDirection, setSwipeArrowDirection] = useState<'left' | 'right' | null>(null);
+  const [isPressHolding, setIsPressHolding] = useState(false);
   const autoPlayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const swipeArrowTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pressHoldTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const previousCardIndexRef = useRef(0);
 
   // Create refs for all cards for PDF export
@@ -201,6 +203,30 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
     touchStartXRef.current = null;
   };
 
+  // Press-and-hold to pause (Instagram stories style)
+  const handlePointerDown = useCallback(() => {
+    pressHoldTimerRef.current = setTimeout(() => {
+      setIsPressHolding(true);
+      clearAutoPlayTimer();
+      setIsAutoPlaying(false);
+    }, 200); // 200ms threshold to distinguish from tap
+  }, [clearAutoPlayTimer]);
+
+  const handlePointerUp = useCallback(() => {
+    // Clear the press-hold timer if it hasn't fired yet
+    if (pressHoldTimerRef.current) {
+      clearTimeout(pressHoldTimerRef.current);
+      pressHoldTimerRef.current = null;
+    }
+
+    // If we were holding, resume autoplay
+    if (isPressHolding) {
+      setIsPressHolding(false);
+      setUserManuallyPaused(false);
+      startAutoPlay();
+    }
+  }, [isPressHolding, startAutoPlay]);
+
   // Start auto-play on mount and restart when card changes if autoplay is active
   useEffect(() => {
     if (isAutoPlaying) {
@@ -219,6 +245,9 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
         className="story-viewport"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
+        onPointerLeave={handlePointerUp}
       >
         {/* Swipe Arrow Indicators */}
         {swipeArrowDirection && (
