@@ -24,8 +24,8 @@
  * - Efficiently handles missing sections
  */
 import type { WorkBook } from 'xlsx';
-import type { DemographicInsights, DemographicItem } from './types';
-import { getCellValue, parsePercentage, findSheet } from './utils';
+import type { DemographicInsights, DemographicItem } from '@utils/excel/types';
+import { getCellValue, parsePercentage, findSheet } from '@utils/excel/utils';
 
 /**
  * Normalize category name to match expected keys

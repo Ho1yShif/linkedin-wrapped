@@ -12,8 +12,15 @@
  * - Content hashing for cache invalidation
  */
 
+// Export configuration constants
+const EXPORT_PIXEL_RATIO = 1.5;
+const TEXT_COLOR_OPACITY = 0.95;
+const EXPORT_ZINDEX = 999999;
+const EXPORT_DIMENSIONS_WIDTH = 1080;
+const EXPORT_DIMENSIONS_HEIGHT = 1350;
+
 import { toPng } from 'html-to-image';
-import { imageCache } from './imageCache';
+import { imageCache } from '@utils/imageCache';
 
 /**
  * Prepare a cloned element for export by cleaning up styles and removing unwanted elements
@@ -80,7 +87,7 @@ function prepareElementForExport(clone: HTMLElement): HTMLElement {
     (el.style as any).setProperty('-moz-background-clip', 'unset', 'important');
 
     // Set explicit white color
-    el.style.setProperty('color', 'rgba(255, 255, 255, 0.95)', 'important');
+    el.style.setProperty(`color`, `rgba(255, 255, 255, ${TEXT_COLOR_OPACITY})`, 'important');
 
     // Remove shadows that might create highlighting effect
     el.style.setProperty('textShadow', 'none', 'important');
@@ -119,12 +126,9 @@ export async function exportCardAsImage(
     if (useCache) {
       const cachedImage = imageCache.get(cacheKey);
       if (cachedImage) {
-        console.log(`[IMAGE] Cache hit for card ${id}`);
         return cachedImage.dataUrl;
       }
     }
-
-    console.log(`[IMAGE] Cache miss for card ${id}, rendering...`);
 
     // Clone the element to avoid modifying the original
     const clone = element.cloneNode(true) as HTMLElement;
@@ -153,7 +157,7 @@ export async function exportCardAsImage(
     container.style.top = '0';
     container.style.width = `${width}px`;
     container.style.height = `${height}px`;
-    container.style.zIndex = '999999';
+    container.style.zIndex = EXPORT_ZINDEX.toString();
     container.style.pointerEvents = 'none';
     container.style.opacity = '0';
 
@@ -164,7 +168,7 @@ export async function exportCardAsImage(
       // Convert to PNG using html-to-image with high resolution
       const dataUrl = await toPng(preparedClone, {
         cacheBust: true,
-        pixelRatio: 1.5,
+        pixelRatio: EXPORT_PIXEL_RATIO,
         backgroundColor,
       });
 
@@ -177,7 +181,6 @@ export async function exportCardAsImage(
           backgroundColor,
           size,
         });
-        console.log(`[IMAGE] Cached card ${id} (size: ${(size / 1024).toFixed(2)}KB)`);
       }
 
       return dataUrl;
@@ -215,7 +218,7 @@ function hashContent(content: string): string {
  */
 export function getOptimalExportDimensions(): { width: number; height: number } {
   return {
-    width: 1080,
-    height: 1350,
+    width: EXPORT_DIMENSIONS_WIDTH,
+    height: EXPORT_DIMENSIONS_HEIGHT,
   };
 }

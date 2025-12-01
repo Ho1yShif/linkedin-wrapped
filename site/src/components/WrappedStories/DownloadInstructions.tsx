@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { openLinkedInShare } from '../../utils/linkedinShareLink';
+import { openLinkedInShare } from '@utils/linkedinShareLink';
 import '@styles/WrappedStories.css';
 
 type ExportType = 'current-card' | 'all-cards';

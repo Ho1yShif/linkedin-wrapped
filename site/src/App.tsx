@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { FileUpload } from './components/FileUpload';
-import { UnifiedDashboard } from './components/UnifiedDashboard';
-import { Loading } from './components/Loading';
-import { ErrorDisplay } from './components/Error';
-import { Header } from './components/Header';
-import { useCache } from './hooks/useCache';
-import type { DemographicInsights, EngagementMetrics } from './types';
-import type { ParsedExcelData } from './utils/excel/types';
+import { FileUpload } from '@components/FileUpload';
+import { UnifiedDashboard } from '@components/UnifiedDashboard';
+import { Loading } from '@components/Loading';
+import { Error as ErrorDisplay } from '@components/Error';
+import { Header } from '@components/Header';
+import { useCache } from '@/hooks/useCache';
+import type { DemographicInsights, EngagementMetrics } from '@types';
+import type { ParsedExcelData } from '@utils/excel/types';
 import './App.css';
 
 interface DataState {

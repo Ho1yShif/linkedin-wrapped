@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
-import { SpotifyDashboard } from './SpotifyDashboard';
-import { TopPostsDisplay } from './TopPostsDisplay';
-import { DemographicsView } from './DemographicsView';
-import { WrappedStoriesContainer } from './WrappedStories/WrappedStoriesContainer';
-import { FinalMessage } from './FinalMessage';
-import { generateShareableCards } from '../utils/cardDataMapper';
+import { SpotifyDashboard } from '@components/SpotifyDashboard';
+import { TopPostsDisplay } from '@components/TopPostsDisplay';
+import { DemographicsView } from '@components/DemographicsView';
+import { WrappedStoriesContainer } from '@components/WrappedStories/WrappedStoriesContainer';
+import { FinalMessage } from '@components/FinalMessage';
+import { generateShareableCards } from '@utils/cardDataMapper';
 import type { EngagementMetrics, TopPost, DemographicInsights } from '@types';
-import type { ParsedExcelData } from '../utils/excel/types';
-import '../styles/UnifiedDashboard.css';
+import type { ParsedExcelData } from '@utils/excel/types';
+import '@styles/UnifiedDashboard.css';
 
 interface UnifiedDashboardProps {
   data: EngagementMetrics;

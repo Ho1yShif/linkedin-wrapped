@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { exportCardAsImage } from '../../utils/imageExport';
-import { exportCardsAsPDFBatch } from '../../utils/pdfExport';
-import { DownloadInstructions } from './DownloadInstructions';
-import { ExportProgress } from './ExportProgress';
-import type { ShareableCard } from '../../types/wrappedStories';
-import type { ExportProgress as ExportProgressType } from '../../types/export';
-import '../../styles/ShareButton.css';
+import { exportCardAsImage } from '@utils/imageExport';
+import { exportCardsAsPDFBatch } from '@utils/pdfExport';
+import { DownloadInstructions } from '@components/WrappedStories/DownloadInstructions';
+import { ExportProgressModal } from '@components/WrappedStories/ExportProgress';
+import type { ShareableCard } from '@/types/wrappedStories';
+import type { ExportProgress as ExportProgressType } from '@/types/export';
+import '@styles/ShareButton.css';
 
 interface ShareButtonProps {
   cardId: string;
@@ -307,7 +307,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
 
       {/* Export Progress Modal - Rendered as Portal to escape stacking context */}
       {exportProgress && createPortal(
-        <ExportProgress
+        <ExportProgressModal
           progress={exportProgress}
           isVisible={showExportProgress}
           onCancel={() => {

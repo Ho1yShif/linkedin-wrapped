@@ -2,7 +2,7 @@
  * Utility to extract and manage the wrapped year
  */
 
-import type { ParsedExcelData } from './excel/types';
+import type { ParsedExcelData } from '@utils/excel/types';
 
 /**
  * Extract the year from discovery data

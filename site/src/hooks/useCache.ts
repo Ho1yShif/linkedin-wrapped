@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { storageManager } from '../utils/storageManager';
-import type { ParsedExcelData } from '../utils/excel/types';
+import { storageManager } from '@utils/storageManager';
+import type { ParsedExcelData } from '@utils/excel/types';
 
 export interface CacheState {
   data: ParsedExcelData | null;

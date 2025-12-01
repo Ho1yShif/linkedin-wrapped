@@ -22,8 +22,8 @@
  * - Memory efficient: only stores unique URLs
  */
 import type { WorkBook } from 'xlsx';
-import type { TopPost } from '../../types';
-import { getCellValue, parseDate, parseNumber, parseURL, findSheet } from './utils';
+import type { TopPost } from '@types';
+import { getCellValue, parseDate, parseNumber, parseURL, findSheet } from '@utils/excel/utils';
 
 interface PostData {
   url: string;

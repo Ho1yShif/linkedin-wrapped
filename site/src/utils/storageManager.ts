@@ -1,4 +1,4 @@
-import type { ParsedExcelData } from './excel/types';
+import type { ParsedExcelData } from '@utils/excel/types';
 
 export interface CachedData {
   data: ParsedExcelData;

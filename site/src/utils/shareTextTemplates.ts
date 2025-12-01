@@ -2,8 +2,8 @@
  * Pre-written LinkedIn share text templates for each card type
  */
 
-import type { ParsedExcelData } from './excel/types';
-import { getWrappedYear } from './yearExtractor';
+import type { ParsedExcelData } from '@utils/excel/types';
+import { getWrappedYear } from '@utils/yearExtractor';
 
 function formatNumber(num: number): string {
   if (num >= 1000000) {

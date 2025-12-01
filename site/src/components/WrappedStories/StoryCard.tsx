@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import { ShareButton } from './ShareButton';
-import { StoryProgress } from './StoryProgress';
-import type { ShareableCard } from '../../types/wrappedStories';
+import { ShareButton } from '@components/WrappedStories/ShareButton';
+import { StoryProgress } from '@components/WrappedStories/StoryProgress';
+import type { ShareableCard } from '@/types/wrappedStories';
 
 interface StoryCardProps {
   card: ShareableCard;

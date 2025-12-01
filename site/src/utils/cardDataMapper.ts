@@ -2,9 +2,9 @@
  * Maps parsed Excel data to shareable card objects
  */
 
-import type { ShareableCard } from '../types/wrappedStories';
-import type { ParsedExcelData } from './excel/types';
-import { generateShareText } from './shareTextTemplates';
+import type { ShareableCard } from '@/types/wrappedStories';
+import type { ParsedExcelData } from '@utils/excel/types';
+import { generateShareText } from '@utils/shareTextTemplates';
 
 /**
  * Format large numbers for display (e.g., 1500000 -> 1.5M)

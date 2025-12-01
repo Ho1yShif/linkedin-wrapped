@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatRelativeTime, formatFullDate } from '../utils/dateFormatter';
+import { formatRelativeTime, formatFullDate } from '@utils/dateFormatter';
 import '../styles/CacheIndicator.css';
 
 interface CacheIndicatorProps {

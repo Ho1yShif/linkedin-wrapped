@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { StoryCard } from './StoryCard';
-import type { ShareableCard } from '../../types/wrappedStories';
+import { StoryCard } from '@components/WrappedStories/StoryCard';
+import type { ShareableCard } from '@/types/wrappedStories';
 import '@styles/WrappedStories.css';
 
 interface WrappedStoriesContainerProps {

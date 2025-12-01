@@ -4,6 +4,10 @@
  * Uses LRU eviction strategy with memory limits
  */
 
+// Cache configuration constants
+const DEFAULT_IMAGE_CACHE_SIZE_MB = 15;
+const MAX_CACHED_IMAGES = 8;
+
 export interface CachedImage {
   dataUrl: string;
   timestamp: number;
@@ -28,8 +32,8 @@ export interface CacheStats {
 class ImageCache {
   private cache: Map<string, CachedImage> = new Map();
   private accessOrder: string[] = []; // Track access order for LRU
-  private maxSize: number = 15 * 1024 * 1024; // 15 MB (sufficient for 8 cards as data URLs)
-  private maxEntries: number = 8; // 8 cards max available for export
+  private maxSize: number = DEFAULT_IMAGE_CACHE_SIZE_MB * 1024 * 1024;
+  private maxEntries: number = MAX_CACHED_IMAGES;
   private currentSize: number = 0;
   private hitCount: number = 0;
   private missCount: number = 0;

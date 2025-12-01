@@ -18,7 +18,7 @@
  * - ~5-10ms processing time typical
  */
 import type { WorkBook } from 'xlsx';
-import { getCellValue, parseNumber, findSheet } from './utils';
+import { getCellValue, parseNumber, findSheet } from '@utils/excel/utils';
 
 /**
  * Parse the Followers sheet to extract total followers and New followers data

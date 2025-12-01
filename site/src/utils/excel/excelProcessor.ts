@@ -34,12 +34,12 @@
  * - Safe for processing sensitive business data
  */
 import * as XLSX from 'xlsx';
-import type { ParsedExcelData } from './types';
-import { parseDiscovery } from './discoveryParser';
-import { parseTopPosts } from './topPostsParser';
-import { parseDemographics } from './demographicsParser';
-import { parseSummaryMetrics, calculateTotalEngagements, calculateMedianDailyImpressions } from './summaryMetricsParser';
-import { parseFollowers } from './followersParser';
+import type { ParsedExcelData } from '@utils/excel/types';
+import { parseDiscovery } from '@utils/excel/discoveryParser';
+import { parseTopPosts } from '@utils/excel/topPostsParser';
+import { parseDemographics } from '@utils/excel/demographicsParser';
+import { parseSummaryMetrics, calculateTotalEngagements, calculateMedianDailyImpressions } from '@utils/excel/summaryMetricsParser';
+import { parseFollowers } from '@utils/excel/followersParser';
 
 /**
  * Process an Excel file and extract all LinkedIn analytics data

@@ -2,7 +2,7 @@
  * Excel-specific types and interfaces for parsing LinkedIn analytics data
  */
 
-import type { TopPost } from '../../types';
+import type { TopPost } from '@types';
 
 export interface DiscoveryData {
   start_date: string;

@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import type { ParsedExcelData } from '../utils/excel/types';
-import { useCache } from '../hooks/useCache';
-import { useSampleData } from '../hooks/useSampleData';
-import { CacheIndicator } from './CacheIndicator';
-import { SampleDataButton } from './SampleDataButton';
+import type { ParsedExcelData } from '@utils/excel/types';
+import { useCache } from '@/hooks/useCache';
+import { useSampleData } from '@/hooks/useSampleData';
+import { CacheIndicator } from '@components/CacheIndicator';
+import { SampleDataButton } from '@components/SampleDataButton';
 import '../styles/FileUpload.css';
 
 interface FileUploadProps {

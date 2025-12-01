@@ -1,6 +1,6 @@
 import React from 'react';
-import { useAppStore } from '../store';
-import { getWrappedYear } from '../utils/yearExtractor';
+import { useAppStore } from '@store';
+import { getWrappedYear } from '@utils/yearExtractor';
 import '../styles/SpotifyDashboard.css';
 
 interface DiscoveryData {

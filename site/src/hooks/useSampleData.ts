@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { ParsedExcelData } from '../utils/excel/types';
+import type { ParsedExcelData } from '@utils/excel/types';
 
 interface UseSampleDataReturn {
   loadSampleData: () => Promise<void>;

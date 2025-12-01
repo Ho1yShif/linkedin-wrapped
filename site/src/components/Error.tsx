@@ -1,12 +1,12 @@
 import React from 'react';
 import '../styles/Error.css';
 
-interface ErrorDisplayProps {
+interface ErrorProps {
   error: string;
   onRetry?: () => void;
 }
 
-export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ error, onRetry }) => {
+export const Error: React.FC<ErrorProps> = ({ error, onRetry }) => {
   return (
     <div className="error-container">
       <div className="error-icon">⚠️</div>

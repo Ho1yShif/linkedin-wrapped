@@ -20,8 +20,8 @@
  * - ~1-5ms processing time typical
  */
 import type { WorkBook } from 'xlsx';
-import type { DiscoveryData } from './types';
-import { getCellValue, parseDate, parseNumber, findSheet } from './utils';
+import type { DiscoveryData } from '@utils/excel/types';
+import { getCellValue, parseDate, parseNumber, findSheet } from '@utils/excel/utils';
 
 /**
  * Parse the Discovery sheet to extract overall performance metrics

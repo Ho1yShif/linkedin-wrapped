@@ -1,6 +1,6 @@
 import React from 'react';
-import type { ExportProgress as ExportProgressType } from '../../types/export';
-import '../../styles/ExportProgress.css';
+import type { ExportProgress as ExportProgressType } from '@/types/export';
+import '@styles/ExportProgress.css';
 
 interface ExportProgressProps {
   progress: ExportProgressType;
@@ -9,10 +9,10 @@ interface ExportProgressProps {
 }
 
 /**
- * ExportProgress: Display progress of export operations
+ * ExportProgressModal: Display progress of export operations
  * Shows current card, overall progress, stage, and estimated time
  */
-export const ExportProgress: React.FC<ExportProgressProps> = ({
+export const ExportProgressModal: React.FC<ExportProgressProps> = ({
   progress,
   isVisible,
   onCancel,

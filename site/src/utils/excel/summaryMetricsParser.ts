@@ -25,8 +25,8 @@
  * - Consistency tracking: measure posting consistency
  */
 import type { WorkBook } from 'xlsx';
-import type { EngagementByDay } from './types';
-import { getCellValue, parseDate, parseNumber, findSheet } from './utils';
+import type { EngagementByDay } from '@utils/excel/types';
+import { getCellValue, parseDate, parseNumber, findSheet } from '@utils/excel/utils';
 
 interface EngagementEntry {
   date: string;
