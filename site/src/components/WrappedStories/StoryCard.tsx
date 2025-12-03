@@ -177,7 +177,6 @@ export const StoryCard: React.FC<StoryCardProps> = ({
           <div className="branding">LinkedIn Wrapped</div>
           <ShareButton
             cardId={card.id}
-            shareText={card.shareText}
             card={card}
             cardRef={cardRef as React.RefObject<HTMLDivElement>}
             allCards={allCards}

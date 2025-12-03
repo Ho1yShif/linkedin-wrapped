@@ -5,8 +5,7 @@
 export type CardType =
   | 'total-impressions'
   | 'members-reached'
-  | 'engagements'
-  | 'engagements'
+  | 'best-month'
   | 'top-post'
   | 'audience-industry'
   | 'audience-location'
@@ -29,7 +28,6 @@ export interface ShareableCard {
   type: CardType;
   title: string;
   data: CardData;
-  shareText: string;
   backgroundColor: string;
   gradient: string;
 }

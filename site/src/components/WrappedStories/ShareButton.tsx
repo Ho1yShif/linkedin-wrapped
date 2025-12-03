@@ -10,7 +10,6 @@ import '@styles/ShareButton.css';
 
 interface ShareButtonProps {
   cardId: string;
-  shareText: string;
   card: ShareableCard;
   cardRef: React.RefObject<HTMLDivElement>;
   allCards?: React.RefObject<HTMLDivElement>[];
@@ -29,7 +28,6 @@ type ExportOption = 'current-card' | 'all-cards' | null;
  */
 export const ShareButton: React.FC<ShareButtonProps> = ({
   cardId,
-  shareText,
   cardRef,
   allCards = [],
   summaryMetrics,
@@ -323,7 +321,6 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
       {showInstructions && createPortal(
         <DownloadInstructions
           isVisible={showInstructions}
-          shareText={shareText}
           impressions={summaryMetrics?.impressions || '0'}
           membersReached={summaryMetrics?.membersReached || '0'}
           exportType={exportType ?? 'current-card'}

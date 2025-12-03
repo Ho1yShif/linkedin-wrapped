@@ -68,48 +68,4 @@ export function getLinkedInShareConfig(
   };
 }
 
-/**
- * Create a complete LinkedIn share action with prefilled text
- * Returns a function that triggers the share and copies text
- *
- * @param shareText The text to copy to clipboard
- * @param onShareClick Optional callback when share is clicked
- * @param onCopySuccess Optional callback when text is copied
- * @param onError Optional error handler
- */
-export function createLinkedInShareAction(
-  shareText: string,
-  onShareClick?: () => void,
-  onCopySuccess?: () => void,
-  onError?: (error: Error) => void
-): () => Promise<void> {
-  return async () => {
-    try {
-      // Copy text to clipboard
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(shareText);
-      } else {
-        // Fallback for older browsers
-        const textArea = document.createElement('textarea');
-        textArea.value = shareText;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-      }
 
-      // Trigger callback
-      onCopySuccess?.();
-
-      // Open LinkedIn share dialog
-      onShareClick?.();
-      openLinkedInShare();
-    } catch (error) {
-      const err = error instanceof Error ? error : new Error('Failed to prepare share');
-      onError?.(err);
-      throw err;
-    }
-  };
-}

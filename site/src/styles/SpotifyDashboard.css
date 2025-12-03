@@ -7,37 +7,15 @@
   border: none;
 }
 
-/* Metrics Grid - 3 different layouts for 3 lines */
+/* Metrics Grid - 3 equal-size columns for all rows */
 .wrapped-metrics-grid {
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-/* Line 1: 2 cards at 50% each */
-.wrapped-metrics-grid.line-1 {
-  grid-template-columns: repeat(2, 1fr);
-}
 
-/* Line 2: 3 cards */
-.wrapped-metrics-grid.line-2 {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-/* Line 3: 3 cards */
-.wrapped-metrics-grid.line-3 {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 4rem;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 /* Metric Cards - Modern Design with Color Response */
 .metric-card {
@@ -86,6 +64,10 @@
   background: var(--gradient-primary);
 }
 
+.gradient-4 {
+  background: var(--gradient-primary);
+}
+
 .card-content {
   position: relative;
   z-index: 2;
@@ -95,31 +77,14 @@
 }
 
 .card-label {
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 1.1rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: var(--text-tertiary);
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 1rem;
   transition: color 0.2s ease;
-}
-
-.wrapped-metrics-grid.line-1 .card-label {
-  font-size: 1.1rem !important;
-  font-weight: 500 !important;
-  line-height: 1.4 !important;
-  letter-spacing: 0px !important;
-  color: rgba(255, 255, 255, 0.85) !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
-}
-
-.wrapped-metrics-grid.line-2 .card-label {
-  font-size: 0.73rem !important;
-  font-weight: 500 !important;
-  line-height: 1.4 !important;
-  letter-spacing: 0px !important;
-  color: rgba(255, 255, 255, 0.85) !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .metric-card:hover .card-label {
@@ -133,7 +98,7 @@
 }
 
 .card-value {
-  font-size: 2.5rem;
+  font-size: 2rem !important;
   font-weight: 700;
   letter-spacing: -1px;
   color: var(--text-primary);
@@ -141,7 +106,7 @@
 }
 
 .primary-value {
-  font-size: 3rem;
+  font-size: 2.25rem !important;
 }
 
 .metric-card:hover .primary-value {
@@ -152,7 +117,7 @@
 }
 
 .secondary-value {
-  font-size: 2.75rem;
+  font-size: 2rem !important;
 }
 
 .card-unit {
@@ -183,15 +148,7 @@
 
 
 
-@media (max-width: 768px) {
-  .primary-card {
-    grid-column: 1 / -1;
-  }
 
-  .engagement-metrics {
-    gap: 1rem;
-  }
-}
 
 
 
@@ -236,17 +193,12 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .metrics-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.2rem;
-  }
-
   .hero-title {
     font-size: 2.5rem;
   }
 
   .card-value {
-    font-size: 2rem;
+    font-size: 1.75rem !important;
   }
 }
 
@@ -291,14 +243,11 @@
   }
 
   .card-value {
-    font-size: 1.5rem;
+    font-size: 1.3rem !important;
   }
-}
 
-@media (max-width: 768px) {
-  .wrapped-metrics-grid.line-2 .card-label,
-  .wrapped-metrics-grid.line-3 .card-label {
-    font-size: 0.65rem;
+  .card-label {
+    font-size: 0.8rem;
     letter-spacing: 0.7px;
   }
 }
@@ -332,17 +281,11 @@
   }
 
   .card-value {
-    font-size: 1.25rem;
+    font-size: 1rem !important;
   }
 
   .card-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.8px;
-  }
-
-  .wrapped-metrics-grid.line-2 .card-label,
-  .wrapped-metrics-grid.line-3 .card-label {
-    font-size: 0.55rem;
+    font-size: 0.7rem;
     letter-spacing: 0.6px;
   }
 
@@ -360,20 +303,3 @@
 }
 
 
-/* Desktop Optimization - Larger labels */
-@media (min-width: 1025px) {
-  .wrapped-metrics-grid.line-1 .card-label {
-    font-size: 1.8rem !important;
-  }
-
-  .wrapped-metrics-grid.line-2 .card-label {
-    font-size: 1.3rem !important;
-  }
-}
-
-/* HReduce Spotify second-row metrics on very small screens */
-@media (max-width: 389px) {
-  .wrapped-metrics-grid.line-2 .card-label {
-    font-size: 0.6rem !important;
-  }
-}

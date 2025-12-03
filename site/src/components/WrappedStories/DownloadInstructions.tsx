@@ -6,7 +6,6 @@ type ExportType = 'current-card' | 'all-cards';
 
 interface DownloadInstructionsProps {
   isVisible: boolean;
-  shareText: string;
   impressions?: string | number;
   membersReached?: string | number;
   exportType?: ExportType;
@@ -21,35 +20,15 @@ interface DownloadInstructionsProps {
  */
 export const DownloadInstructions: React.FC<DownloadInstructionsProps> = ({
   isVisible,
-  shareText,
   impressions,
   membersReached,
   exportType = 'current-card',
   onDismiss,
 }) => {
   const handleShareOnLinkedIn = useCallback(() => {
-    // Copy share text to clipboard
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(shareText).then(() => {
-        // Open LinkedIn share with card data
-        openLinkedInShare(impressions, membersReached);
-      });
-    } else {
-      // Fallback for older browsers
-      const textArea = document.createElement('textarea');
-      textArea.value = shareText;
-      textArea.style.position = 'fixed';
-      textArea.style.left = '-999999px';
-      textArea.style.top = '-999999px';
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-
-      // Open LinkedIn share with card data
-      openLinkedInShare(impressions, membersReached);
-    }
-  }, [shareText, impressions, membersReached]);
+    // Open LinkedIn share with card data
+    openLinkedInShare(impressions, membersReached);
+  }, [impressions, membersReached]);
 
   if (!isVisible) {
     return null;

@@ -4,7 +4,7 @@
 
 import type { ShareableCard } from '@/types/wrappedStories';
 import type { ParsedExcelData } from '@utils/excel/types';
-import { generateShareText } from '@utils/shareTextTemplates';
+import { calculateBestMonth } from '@utils/bestMonthCalculator';
 
 /**
  * Format large numbers for display (e.g., 1500000 -> 1.5M)
@@ -75,7 +75,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         profileId: 'impressions',
         avatarColor: getAvatarColor('total-impressions'),
       },
-      shareText: generateShareText('total-impressions', data),
       backgroundColor: '#0F0F0F',
       gradient: 'linear-gradient(135deg, #0A66C2 0%, #00B4D8 100%)',
     });
@@ -95,7 +94,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         profileId: 'network',
         avatarColor: getAvatarColor('members-reached'),
       },
-      shareText: generateShareText('members-reached', data),
       backgroundColor: '#0F0F0F',
       gradient: 'linear-gradient(135deg, #E63946 0%, #F77F88 100%)',
     });
@@ -123,7 +121,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         avatarColor: getAvatarColor('top-post'),
         profilePhotoUrl: profilePhotoUrl,
       },
-      shareText: generateShareText('top-post', data),
       backgroundColor: '#0F0F0F',
       gradient: 'linear-gradient(135deg, #FFB703 0%, #FB5607 100%)',
     });
@@ -146,30 +143,31 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         profileId: 'industry',
         avatarColor: getAvatarColor('top-industry'),
       },
-      shareText: generateShareText('audience-industry', data),
       backgroundColor: '#0F0F0F',
       gradient: 'linear-gradient(135deg, #9945FF 0%, #7209B7 100%)',
     });
   }
 
-  // Card 5: Engagements
-  if (data.discovery_data?.total_engagements) {
-    cards.push({
-      id: 'engagements',
-      type: 'engagements',
-      title: 'Engagement Expert',
-      data: {
-        value: formatNumber(data.discovery_data.total_engagements),
-        label: 'Total Engagements',
-        icon: '❤️',
-        context: 'Your audience loves your content',
-        profileId: 'engage',
-        avatarColor: getAvatarColor('engagements'),
-      },
-      shareText: generateShareText('engagements', data),
-      backgroundColor: '#0F0F0F',
-      gradient: 'linear-gradient(135deg, #00D9FF 0%, #0A8FFF 100%)',
-    });
+  // Card 5: Best Month
+  if (data.engagement_by_day && data.engagement_by_day.length > 0) {
+    const bestMonth = calculateBestMonth(data.engagement_by_day);
+    if (bestMonth) {
+      cards.push({
+        id: 'best-month',
+        type: 'best-month',
+        title: 'Engagement Expert',
+        data: {
+          value: bestMonth.monthYear,
+          label: `was your month`,
+          icon: '🗓️',
+          context: `${bestMonth.peopleEngaged.toLocaleString()} people interacted with your content`,
+          profileId: 'month',
+          avatarColor: getAvatarColor('best-month'),
+        },
+        backgroundColor: '#0F0F0F',
+        gradient: 'linear-gradient(135deg, #06A77D 0%, #2A9D8F 100%)',
+      });
+    }
   }
 
   // Card 6: New Followers
@@ -186,9 +184,8 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         profileId: 'growth',
         avatarColor: getAvatarColor('new-followers'),
       },
-      shareText: generateShareText('new-followers', data),
       backgroundColor: '#0F0F0F',
-      gradient: 'linear-gradient(135deg, #06A77D 0%, #2A9D8F 100%)',
+      gradient: 'linear-gradient(135deg, #8B5CF6 0%, #D946EF 100%)',
     });
   }
 
@@ -209,13 +206,12 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         profileId: 'location',
         avatarColor: getAvatarColor('top-location'),
       },
-      shareText: generateShareText('audience-location', data),
       backgroundColor: '#0F0F0F',
       gradient: 'linear-gradient(135deg, #0A66C2 0%, #40E0D0 100%)',
     });
   }
 
-  // Card 8: Year Summary (Always include as final card)
+  // Card 8: Year Summary (final card)
   cards.push({
     id: 'year-summary',
     type: 'year-summary',
@@ -225,12 +221,10 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
       membersReached: formatNumber(data.discovery_data?.members_reached || 0),
       engagements: formatNumber(data.discovery_data?.total_engagements || 0),
       newFollowers: formatNumber(data.discovery_data?.new_followers || 0),
-      icon: '🗓️',
       context: '',
       profileId: 'summary',
       avatarColor: getAvatarColor('year-summary'),
     },
-    shareText: generateShareText('year-summary', data),
     backgroundColor: '#0F0F0F',
     gradient: 'linear-gradient(135deg, #FF006E 0%, #9945FF 50%, #0A66C2 100%)',
   });
@@ -247,7 +241,6 @@ export function getCardTitles(): Record<string, string> {
     'top-post': 'Pinnacle Post Producer',
     'members-reached': 'Magnificent Member Magnetizer',
     'audience-industry': 'Incredible Industry Insider',
-    'engagements': 'Excellent Engagement Expert',
     'new-followers': 'Popular Professional Personality',
     'audience-location': 'Landmark Location Legend',
     'year-summary': 'Legendary LinkedIn Leader',

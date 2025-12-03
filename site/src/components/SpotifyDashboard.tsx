@@ -1,6 +1,8 @@
 import React from 'react';
 import { useAppStore } from '@store';
 import { getWrappedYear } from '@utils/yearExtractor';
+import { calculateBestMonth } from '@utils/bestMonthCalculator';
+import type { EngagementByDay } from '@utils/excel/types';
 import '../styles/SpotifyDashboard.css';
 
 interface DiscoveryData {
@@ -15,10 +17,12 @@ interface DiscoveryData {
 
 interface SpotifyDashboardProps {
   discovery?: DiscoveryData;
+  engagementByDay?: EngagementByDay[];
 }
 
 export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
   discovery,
+  engagementByDay,
 }) => {
   const wrappedYear = useAppStore((state) => state.wrappedYear);
 
@@ -36,6 +40,9 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
 
   const year = wrappedYear ?? (discovery?.end_date ? getWrappedYear(discovery as any) : new Date().getFullYear());
 
+  // Calculate best month from engagement data
+  const bestMonth = engagementByDay && engagementByDay.length > 0 ? calculateBestMonth(engagementByDay) : null;
+
   return (
     <>
       {/* Your <year> Wrapped - Unified Metrics Section */}
@@ -51,7 +58,7 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
           ) : null}
         </p>
         <br></br>
-        {/* Line 1: Impressions and Members reached (2 cards at 50% each) */}
+        {/* Line 1: Total impressions, Members reached, New followers */}
         <div className="wrapped-metrics-grid line-1">
           {/* Total impressions Card */}
           <div className="metric-card">
@@ -80,9 +87,23 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
               <div className="card-accent"></div>
             </div>
           </div>
+
+          {/* New followers Card */}
+          <div className="metric-card">
+            <div className="card-background gradient-2"></div>
+            <div className="card-content">
+              <h3 className="card-label">New followers</h3>
+              <div className="card-value-container">
+                <div className="card-value">
+                  {formatNumber(discovery?.new_followers || 0)}
+                </div>
+              </div>
+              <div className="card-accent"></div>
+            </div>
+          </div>
         </div>
 
-        {/* Line 2: Total engagements, Total impressions (duplicate), and Average Impressions Per Day */}
+        {/* Line 2: Total engagements, Best month, Median daily impressions */}
         <div className="wrapped-metrics-grid line-2">
           {/* Total engagements Card */}
           <div className="metric-card">
@@ -98,7 +119,23 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
             </div>
           </div>
 
-          {/* Average Impressions Per Day Card */}
+          {/* Best month Card */}
+          {bestMonth && (
+            <div className="metric-card">
+              <div className="card-background gradient-4"></div>
+              <div className="card-content">
+                <h3 className="card-label">Best month</h3>
+                <div className="card-value-container">
+                  <div className="card-value secondary-value">
+                    {bestMonth.monthYear}
+                  </div>
+                </div>
+                <div className="card-accent"></div>
+              </div>
+            </div>
+          )}
+
+          {/* Median daily impressions Card */}
           <div className="metric-card">
             <div className="card-background gradient-1"></div>
             <div className="card-content">
@@ -106,20 +143,6 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
               <div className="card-value-container">
                 <div className="card-value secondary-value">
                   {formatNumber(discovery?.average_impressions_per_day || 0)}
-                </div>
-              </div>
-              <div className="card-accent"></div>
-            </div>
-          </div>
-
-          {/* New followers Card */}
-          <div className="metric-card">
-            <div className="card-background gradient-2"></div>
-            <div className="card-content">
-              <h3 className="card-label">New followers</h3>
-              <div className="card-value-container">
-                <div className="card-value secondary-value">
-                  {formatNumber(discovery?.new_followers || 0)}
                 </div>
               </div>
               <div className="card-accent"></div>

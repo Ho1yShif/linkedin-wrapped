@@ -45,6 +45,7 @@ export const UnifiedDashboard: React.FC<UnifiedDashboardProps> = ({
       {discoveryData && (
         <SpotifyDashboard
           discovery={discoveryData}
+          engagementByDay={data.engagementByDay}
         />
       )}
 
