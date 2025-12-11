@@ -93,6 +93,7 @@ function App() {
           <UnifiedDashboard
             data={state.engagement}
             demographics={state.demographics}
+            onExitCarousel={resetState}
           />
         ) : !loading && !state.error && !state.engagement ? (
           <FileUpload onFileProcessed={handleFileProcessed} isLoading={loading} />

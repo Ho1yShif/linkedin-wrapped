@@ -20,7 +20,7 @@ export function Header({ onLogoClick, onClearCache, hasCachedData = false }: Hea
       <div className="header-content">
         <div className="header-left">
           <button
-            className="wrapped-on-linkedin-title-container"
+            className="wrapped-for-linkedin-title-container"
             onClick={handleHomeClick}
             aria-label="Navigate to home"
             title="Wrapped for LinkedIn home"
@@ -31,7 +31,7 @@ export function Header({ onLogoClick, onClearCache, hasCachedData = false }: Hea
                 alt="Gift decoration"
                 className="gift-icon"
               />
-              <h1 className="wrapped-on-linkedin-title">
+              <h1 className="wrapped-for-linkedin-title">
                 Wrapped for LinkedIn
               </h1>
             </div>
