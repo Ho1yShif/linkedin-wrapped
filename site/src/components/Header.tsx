@@ -26,11 +26,6 @@ export function Header({ onLogoClick, onClearCache, hasCachedData = false }: Hea
             title="Wrapped for LinkedIn home"
           >
             <div className="logo-wrapper">
-              <img
-                src="/gift.png"
-                alt="Gift decoration"
-                className="gift-icon"
-              />
               <h1 className="wrapped-for-linkedin-title">
                 Wrapped for LinkedIn
               </h1>
