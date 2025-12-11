@@ -6,13 +6,11 @@ import '@styles/WrappedStories.css';
 interface WrappedStoriesContainerProps {
   cards: ShareableCard[];
   autoPlayDuration?: number; // milliseconds
-  onExit?: () => void; // Callback to exit the carousel
 }
 
 export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = ({
   cards,
   autoPlayDuration = 5000,
-  onExit,
 }) => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -150,9 +148,8 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
           handlePrevious();
           break;
         case 'Escape':
-          if (onExit) {
-            onExit();
-          }
+          clearAutoPlayTimer();
+          setIsAutoPlaying(false);
           break;
         default:
           break;
@@ -161,7 +158,7 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNext, handlePrevious, onExit]);
+  }, [handleNext, handlePrevious, clearAutoPlayTimer]);
 
   // Touch/swipe handling
   const touchStartXRef = useRef<number | null>(null);
@@ -280,18 +277,6 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
 
   return (
     <div className="wrapped-stories-container">
-      {/* Close Button */}
-      {onExit && (
-        <button
-          className="carousel-close-button"
-          onClick={onExit}
-          aria-label="Exit carousel"
-          title="Exit (Esc)"
-        >
-          ✕
-        </button>
-      )}
-
       {/* Left arrow - positioned on left side of viewport */}
       <button
         className="side-nav-button side-nav-prev"
