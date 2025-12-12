@@ -13,7 +13,7 @@
   font-family: var(--font-title);
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--text-accent);
+  color: var(--text-secondary);
   margin: 0 0 0.5rem 0;
   letter-spacing: -0.5px;
 }

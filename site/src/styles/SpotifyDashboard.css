@@ -7,6 +7,14 @@
   border: none;
 }
 
+.section-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-pink);
+  margin: 0;
+  font-weight: 500;
+}
+
 /* Metrics Grid - 3 equal-size columns for all rows */
 .wrapped-metrics-grid {
   display: grid;

@@ -78,6 +78,8 @@ function App() {
 
   return (
     <div className="app-container">
+      {state.engagement && <div className="background-overlay" />}
+      
       <Header
         onLogoClick={handleLogoClick}
         onClearCache={handleClearCache}

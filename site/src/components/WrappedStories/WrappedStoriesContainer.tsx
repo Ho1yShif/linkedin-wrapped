@@ -361,10 +361,6 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
           {isAutoPlaying ? '⏸' : '►'}
         </button>
       </div>
-
-      <div className="story-info">
-        Card {currentCardIndex + 1} of {totalCards}
-      </div>
     </div>
   );
 };

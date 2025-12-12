@@ -32,7 +32,7 @@
 .section-subtitle {
   font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--text-secondary);
+  color: var(--text-pink);
   margin: 0;
   font-weight: 500;
 }

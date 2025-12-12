@@ -26,6 +26,7 @@
   --text-primary: #FFFFFF;
   --text-secondary: #E2E2E2;
   --text-tertiary: #7F7F7F;
+  --text-pink: #F79BFE
 
   /* Spotify-inspired Accent Colors */
   --accent-green: #1DB954;
@@ -67,6 +68,20 @@ body {
   flex-direction: column;
   padding-top: 80px;
   background: transparent;
+  position: relative;
+}
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(13, 13, 13, 0.20) 0%, #0D0D0D 100%);
+  pointer-events: none;
+  z-index: 0;
+  transition: none;
+  animation: none;
 }
 
 /* Fixed header styles moved to Header.css */
@@ -87,6 +102,8 @@ body {
   width: 100%;
   margin: 0 auto;
   background: transparent;
+  position: relative;
+  z-index: 1;
   /* Fixed header is 80px, but app-container has padding-top: 80px */
 }
 
@@ -147,6 +164,8 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .app-footer p {

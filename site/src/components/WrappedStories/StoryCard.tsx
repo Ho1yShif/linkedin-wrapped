@@ -49,7 +49,7 @@ export const StoryCard: React.FC<StoryCardProps> = ({
         '--card-bg-color': card.backgroundColor,
       } as React.CSSProperties & { [key: string]: string }}
       role="region"
-      aria-label={`Card ${cardIndex + 1}: ${card.title}`}
+      aria-label={card.title}
     >
       {/* Progress Bars - Inside Card at Top */}
       <div className="card-progress-wrapper">

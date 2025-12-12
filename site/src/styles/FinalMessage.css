@@ -12,13 +12,9 @@
   font-family: var(--font-title, 'Avenir Next', Avenir, -apple-system, BlinkMacSystemFont, sans-serif);
   font-size: 3.5rem;
   font-weight: 700;
-  color: var(--text-accent, #0A66C2);
+  color: var(--text-secondary);
   margin: 0;
   letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #0A66C2 0%, #0D7EBA 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .final-message-subtitle {

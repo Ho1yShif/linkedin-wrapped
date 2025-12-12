@@ -623,22 +623,20 @@
   padding: 0.75rem 1.5rem;
   min-height: 44px;
   background-color: rgba(10, 102, 194, 0.2);
-  border: 1px solid rgba(10, 102, 194, 0.4);
+  border: none;
   color: #ffffff;
   font-size: 0.9rem;
   font-weight: 600;
-  border-radius: 8px;
   cursor: pointer;
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .control-button:hover {
-  background-color: rgba(10, 102, 194, 0.3);
-  border-color: rgba(10, 102, 194, 0.6);
+  background: rgba(13, 13, 13, 0.66);
   transform: none !important;
 }
 
@@ -648,9 +646,33 @@
 }
 
 .control-button.autoplay-button.playing {
-  background-color: rgba(40, 167, 69, 0.2);
-  border-color: rgba(40, 167, 69, 0.4);
-  color: #ffffff;
+  background: rgba(13, 13, 13, 0.66);
+  backdrop-filter: blur(8px);
+  border: none;
+  color: transparent;
+  background-image: url('/pause.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px 24px;
+}
+
+.control-button.autoplay-button.playing:hover {
+  background-color: rgba(13, 13, 13, 0.88);
+}
+
+.control-button.autoplay-button:not(.playing) {
+  background: rgba(13, 13, 13, 0.66);
+  backdrop-filter: blur(8px);
+  border: none;
+  color: transparent;
+  background-image: url('/play.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px 24px;
+}
+
+.control-button.autoplay-button:not(.playing):hover {
+  background-color: rgba(13, 13, 13, 0.88);
 }
 
 /* Side Navigation Buttons */
@@ -662,31 +684,39 @@
   padding: 0.75rem 1rem;
   min-height: 48px;
   min-width: 48px;
-  background-color: rgba(10, 102, 194, 0.25);
-  border: 1px solid rgba(10, 102, 194, 0.5);
+  background: rgba(13, 13, 13, 0.66);
+  backdrop-filter: blur(8px);
+  border: none;
   color: #ffffff;
   font-size: 1.25rem;
   font-weight: 600;
-  border-radius: 8px;
   cursor: pointer;
-  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
 }
 
 .side-nav-button:hover {
-  background-color: rgba(10, 102, 194, 0.4);
-  border-color: rgba(10, 102, 194, 0.7);
+  background-color: rgba(13, 13, 13, 0.88);
 }
 
 .side-nav-prev {
   left: 0;
+  background-image: url('/arrow-left.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px 24px;
+  color: transparent;
 }
 
 .side-nav-next {
   right: 0;
+  background-image: url('/arrow-right.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px 24px;
+  color: transparent;
 }
 
 /* Click Zones for Desktop Navigation */
@@ -709,16 +739,6 @@
 .click-zone-right {
   right: 0;
   cursor: e-resize;
-}
-
-/* Story Info */
-.story-info {
-  text-align: center;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
 }
 
 /* ===== RESPONSIVE STYLES ===== */
@@ -906,10 +926,6 @@
     gap: 0.4rem;
   }
 
-  .story-info {
-    font-size: 0.7rem;
-  }
-
   /* Landscape peak performer */
   .peak-performer-content {
     gap: 0.5rem;
@@ -1043,12 +1059,6 @@
     padding: 0.6rem 1.2rem;
     font-size: 0.85rem;
     min-height: 40px;
-  }
-
-  .story-info {
-    font-size: 0.75rem;
-    margin-bottom: 0.5rem;
-    flex-shrink: 0;
   }
 
   /* Peak Performer Responsive */
@@ -1398,12 +1408,6 @@
   .story-controls {
     gap: 0.3rem;
     margin-bottom: 0.4rem;
-    flex-shrink: 0;
-  }
-
-  .story-info {
-    font-size: 0.65rem;
-    margin-bottom: 0.2rem;
     flex-shrink: 0;
   }
 
