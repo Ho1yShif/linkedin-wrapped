@@ -2,6 +2,8 @@ import '../styles/Header.css';
 
 interface HeaderProps {
   onLogoClick?: () => void;
+  onClearCache?: () => void;
+  hasCachedData?: boolean;
 }
 
 export function Header({ onLogoClick }: HeaderProps) {

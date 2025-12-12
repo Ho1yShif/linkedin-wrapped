@@ -25,7 +25,6 @@ interface StoryCardProps {
 export const StoryCard: React.FC<StoryCardProps> = ({
   card,
   isActive,
-  cardIndex,
   cardRef: externalCardRef,
   allCards,
   summaryMetrics,

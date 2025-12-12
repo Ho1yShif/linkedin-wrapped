@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FileUpload } from '@components/FileUpload';
 import { UnifiedDashboard } from '@components/UnifiedDashboard';
 import { Loading } from '@components/Loading';
@@ -27,6 +27,33 @@ function App() {
     error: null,
   });
   const cache = useCache();
+
+  // Detect hard refresh and clear cache
+  useEffect(() => {
+    // Check if this is a hard refresh by looking at sessionStorage
+    // sessionStorage is cleared on hard refresh but persists on soft refresh
+    const sessionKey = 'wrapped-session-active';
+    const wasSessionActive = sessionStorage.getItem(sessionKey);
+    
+    if (!wasSessionActive) {
+      // This is either first visit or hard refresh
+      // Hard refresh clears sessionStorage, so we clear localStorage too
+      cache.clear();
+      sessionStorage.setItem(sessionKey, 'true');
+    }
+    
+    // Set up beforeunload to persist session flag on soft refresh
+    const handleBeforeUnload = () => {
+      sessionStorage.setItem(sessionKey, 'true');
+    };
+    
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [cache]);
+
 
   const handleFileProcessed = (excelData: ParsedExcelData, fileError?: string, date?: number, fromCache?: boolean) => {
     setLoading(false);
@@ -85,6 +112,17 @@ function App() {
         onClearCache={handleClearCache}
         hasCachedData={cache.data !== null}
       />
+
+      {state.engagement && (
+        <button
+          className="upload-new-data-btn"
+          onClick={handleClearCache}
+          aria-label="Upload new data"
+          title="Upload new data"
+        >
+          Upload new data
+        </button>
+      )}
 
       <main className="app-main">
         {state.error && <ErrorDisplay error={state.error} onRetry={handleRetry} />}
